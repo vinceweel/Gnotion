@@ -1,4 +1,5 @@
 import { reactive } from 'vue'
+import useConsole from '../console'
 
 import * as actions from './actions'
 
@@ -36,6 +37,9 @@ const dispatch = async (action: ActionName, params: ActionParams = {}) => {
 const hasAction = (action: ActionName) => Object.keys(actions).includes(action)
 
 const useStore = (provider: Provider) => {
+  const { log } = useConsole('useStore')
+  log('test')
+
   return { hasAction, dispatch }
 }
 

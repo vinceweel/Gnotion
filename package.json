@@ -1,5 +1,14 @@
 {
-  "version": "0.0.0",
+  "name": "gnotion",
+  "version": "0.0.1",
+  "displayName": "Gnotion",
+  "author": {
+    "name": "Vince Weel",
+    "email": "vince.weel.io@outlook.com",
+    "url": "https://gnotion.weel.cool/vince"
+  },
+  "homepage": "https://github.com/vinceweel/Gnotion",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -12,6 +21,7 @@
     "vue": "^3.0.5"
   },
   "devDependencies": {
+    "@types/node": "^16.0.0",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.0.5",
     "eslint": "^7.29.0",

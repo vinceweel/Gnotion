@@ -1,8 +1,8 @@
 <template>
-    <View>
-        <FloatAction />
-        <Reader />
-    </View>
+  <View>
+    <UniversalAction />
+    <Reader />
+  </View>
 </template>
 
 <script lang="ts">
@@ -10,8 +10,8 @@ import { defineComponent } from 'vue'
 import * as components from './main'
 
 export default defineComponent({
-    name: 'Main',
-    components,
+  name: 'Main',
+  components,
 })
 </script>
 

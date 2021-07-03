@@ -1,1 +1,3 @@
-export const a = () => {}
+export const readArticle = () => {}
+
+export const readComments = () => {}

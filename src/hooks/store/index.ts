@@ -1,40 +1,42 @@
 import { reactive } from 'vue'
-export * as actions from './actions'
+
+import * as actions from './actions'
 
 const theme = reactive({
-    dark: false,
-    light: true,
+  dark: false,
+  light: true,
 })
 
 export const state = reactive({
-    theme,
+  theme,
 })
 
 export const useDispatch = (action: Action) => {
-    return {}
+  return {}
 }
 
 export const useCommit = () => {}
 
-type ActionName = string
-type ActionParams = { [k: string]: unknown }
-type Action = {
-    type: ActionName
-    payload?: ActionParams
-    meta?: Action['payload']
-    error?: null | Error | string
+export type ActionName = keyof typeof actions
+export type ActionParams = Record<string, any>
+export type Action = {
+  type: ActionName
+  payload?: ActionParams
+  meta?: Action['payload']
+  error?: null | Error | string
 }
 
-const dispatch = (action: ActionName, params: ActionParams = {}) => {
-    console.log(params)
-    return {
-        action,
-        data: { test: true, ...params }
-    }
+const dispatch = async (action: ActionName, params: ActionParams = {}) => {
+  return {
+    action,
+    data: { test: true, ...params },
+  }
 }
+
+const hasAction = (action: ActionName) => Object.keys(actions).includes(action)
 
 const useStore = (provider: Provider) => {
-    return { dispatch }
+  return { hasAction, dispatch }
 }
 
 export default useStore

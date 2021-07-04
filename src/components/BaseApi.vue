@@ -16,13 +16,14 @@ type Props = {
 export default defineComponent({
   props: ['provider', 'action', 'params'],
 
-  setup({ provider = 'github', action, params }: Props) {
+  async setup({ provider = 'github', action, params }: Props) {
     const { hasAction, dispatch } = useStore(provider)
 
     if (!hasAction(action))
       throw new Error(`the action named: "${action}" is not exsited.`)
 
-    const response = dispatch(action, params)
+    const response = await dispatch(action, params)
+    console.log(response)
     const payload = ref({})
 
     return {

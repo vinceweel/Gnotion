@@ -1,8 +1,8 @@
 :root {
   --color-primary: #0084ffff;
 
-  --universal-action-x: 0vw;
-  --universal-action-y: 0vh;
+  --universal-action-x: 50vw;
+  --universal-action-y: 50vh;
 }
 
 *,

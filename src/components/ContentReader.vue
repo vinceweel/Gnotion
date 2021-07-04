@@ -1,8 +1,10 @@
 <template>
     <article :class="name">
-        <Api action="readArticle" v-slot="{ action, data }">
-            <p>{{ action }}</p>
-            <p>{{ data }}</p>
+      {{'ddd'}}
+        <Api action="readArticle" v-slot="response">
+            <!-- <p>{{ action }}</p> -->
+            <!-- <p>{{ data }}</p> -->
+            {{response}}
         </Api>
         <hr />
         <Api action="readComments" :params="{ test: false }" v-slot="{ action, data }">
@@ -13,8 +15,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import Api from './BaseApi.vue'
+import { defineAsyncComponent, defineComponent } from 'vue'
+// import Api from './BaseApi.vue'
+const Api = defineAsyncComponent(() => import('./BaseApi.vue'))
 
 const name = 'ContentReader'
 

@@ -29,6 +29,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.3.2",
     "typescript": "^4.3.2",
+    "vconsole": "^3.8.1",
     "vite": "^2.3.8",
     "vue-tsc": "^0.0.24"
   }

@@ -16,18 +16,32 @@ const useConsole = (TAG: string = '', options: Options = {}) => {
   } = options
 
   const bind = (t: ConsoleMethods = 'log', enable = true) => {
-    const style = `font-family:sans-serif;display:inline-block;line-height:1.25;`
+    const style = `
+      font-family: sans-serif;
+      color: ${color.text};
+      display: inline-block;
+      line-height: 1.35;
+    `
     const tag: any[] = [
-      `%c  ${name}  %c  ${version}  `,
-      `${style}border-radius:1em 0 0 1em;background:${
-        color[t ?? 'primary']
-      };color:${color.text};`,
-      `${style}border-radius:0 1em 1em 0;background:${color.version};color:${color.text};`,
+      `%c ${name} %c ${version}`,
+      `${style}
+        padding: 4px 4px 4px 8px;
+        border-radius: 2.6em 0 0 1.5em;
+        background: ${color[t ?? 'primary']};
+      `,
+      `${style}
+        padding: 4px 12px 4px 4px;
+        border-radius: 0 1.2em 2em 0;
+        background: ${color.version};
+      `,
     ]
 
-    // return enable ? console[t].bind(window.console, ...tag) : () => void 0
     return enable
-      ? console[onlylog ? 'log' : t].bind(window.console, ...tag, TAG && `${TAG}:`)
+      ? console[onlylog ? 'log' : t].bind(
+          window.console,
+          ...tag,
+          TAG && `${TAG}:`.toUpperCase(),
+        )
       : () => void 0
   }
 

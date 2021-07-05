@@ -12,7 +12,7 @@ export const readArticle = async (params: ActionParams) => {
   // const img = new Image(500, 500)
   // img.src = data.data.avatar_url
   // document.body.appendChild(img)
-  return { test: 'test' }
+  return { test: 'test', ...params }
 }
 
 export const readComments = () => ({ a: 'a' })

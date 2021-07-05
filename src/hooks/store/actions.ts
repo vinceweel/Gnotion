@@ -1,3 +1,5 @@
-export const readArticle = () => {}
+import useConsole from "../console"
 
-export const readComments = () => {}
+export const init = () => {
+  useConsole('init').info('store init.')
+}

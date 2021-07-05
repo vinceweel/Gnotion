@@ -1,5 +1,5 @@
 <template>
-  <slot v-bind="response" />
+    <slot v-bind="result" />
 </template>
 
 <script lang="ts">
@@ -22,13 +22,10 @@ export default defineComponent({
     if (!hasAction(action))
       throw new Error(`the action named: "${action}" is not exsited.`)
 
-    const response = await dispatch(action, params)
-    console.log(response)
-    const payload = ref({})
+    const result = dispatch(action, params)
 
     return {
-      response,
-      payload,
+      result,
     }
   },
 })

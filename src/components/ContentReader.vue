@@ -1,15 +1,11 @@
 <template>
     <article :class="name">
-      {{'ddd'}}
-        <Api action="readArticle" v-slot="response">
-            <!-- <p>{{ action }}</p> -->
-            <!-- <p>{{ data }}</p> -->
-            {{response}}
+        <Api action="readArticle" v-slot="ret">
+            <p>{{ ret }}</p>
         </Api>
         <hr />
-        <Api action="readComments" :params="{ test: false }" v-slot="{ action, data }">
-            <p>{{ action }}</p>
-            <p>{{ data }}</p>
+        <Api action="readComments" :params="{ test: false }" v-slot="ret">
+            <p>{{ ret }}</p>
         </Api>
     </article>
 </template>

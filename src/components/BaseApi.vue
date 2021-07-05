@@ -5,23 +5,28 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
-import useStore, { Provider } from '../hooks/store'
+import useStore, { ActionName, Provider } from '../hooks/store'
 
 type Props = {
-    provider?: Provider
-    action: string
-    params?: { [k: string]: unknown }
+  provider?: Provider
+  action: ActionName
+  params?: { [k: string]: unknown }
 }
 
 export default defineComponent({
-    props: ['provider', 'action', 'params'],
+  props: ['provider', 'action', 'params'],
 
-    setup({ provider = 'github', action, params }: Props) {
-        const { dispatch } = useStore(provider)
+  setup({ provider = 'github', action, params }: Props) {
+    const { hasAction, dispatch } = useStore(provider)
 
-        const result = dispatch(action, params)
+    if (!hasAction(action))
+      throw new Error(`the action named: "${action}" is not exsited.`)
 
-        return { result }
-    },
+    const result = dispatch(action, params)
+
+    return {
+      result,
+    }
+  },
 })
 </script>

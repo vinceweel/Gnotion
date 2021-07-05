@@ -1,9 +1,18 @@
 :root {
-    --color-primary: #0084ffff;
+  --color-primary: #0084ffff;
+
+  --universal-action-x: 0vw;
+  --universal-action-y: 0vh;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: "Noto Sans", Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

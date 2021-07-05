@@ -1,5 +1,5 @@
-import { ActionParams } from '.'
+import useConsole from "../console"
 
-export const readArticle = (params: ActionParams) => {
-    console.log(params)
+export const init = () => {
+  useConsole('init').info('store init.')
 }

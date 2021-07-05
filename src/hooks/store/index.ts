@@ -1,52 +1,58 @@
 import { reactive } from 'vue'
-// import * as actions from './actions'
-// import * as github from './github/actions'
-
-// const actionsProviders: Record<Provider, Record<string, any>> = {
-//     github,
-// }
+import useConsole from '../console'
 
 const theme = reactive({
-    dark: false,
-    light: true,
+  dark: false,
+  light: true,
 })
 
 export const state = reactive({
-    theme,
+  theme,
 })
 
-export type ActionName = string
-export type ActionParams = { [k: string]: unknown }
-export type Action = {
-    type: ActionName
-    payload?: ActionParams
-    meta?: Action['payload']
-    error?: null | Error | string
-}
+import * as commonActions from './actions'
+import * as githubActions from './github/actions'
 
-const genDispatch = (name: Provider) => async (
-    action: ActionName,
-    params: ActionParams = {},
+const actions = { ...commonActions, ...githubActions }
+
+const genDispatch = (name: Provider) => (
+  action: ActionName,
+  params: ActionParams = {},
 ) => {
-    const actionsProviders: Record<Provider, Record<string, any>> = {
-        github: await import('./github/actions'),
-    }
+  const actionsProviders: Record<Provider, Record<string, any>> = {
+    github: githubActions,
+  }
 
-    const actions = actionsProviders[name]
-    const actionReducer = actions[action]
+  const actions = actionsProviders[name]
+  const actionReducer = actions[action]
 
-    if (actionReducer) return await actionReducer(params)
+  if (actionReducer) return actionReducer(params)
 
-    return {
-        action,
-        data: { test: true, ...params },
-    }
+  return {
+    action,
+    data: { test: true, ...params },
+  }
 }
+
+const hasAction = (action: ActionName) => Object.keys(actions).includes(action)
+
 const useStore = (name: Provider = 'github') => {
-    return { dispatch: genDispatch(name) }
+  const { log } = useConsole('useStore')
+  log('test')
+
+  return { hasAction, dispatch: genDispatch(name) }
 }
 
 export default useStore
 
 export type Provider = 'github' | string
 export type Engine = 'issue' | 'repo' | 'webdav' | 'wiki'
+
+export type ActionName = keyof typeof actions
+export type ActionParams = Record<string, any>
+export type Action = {
+  type: ActionName
+  payload?: ActionParams
+  meta?: Action['payload']
+  error?: null | Error | string
+}

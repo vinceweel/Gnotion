@@ -7,7 +7,7 @@ const auth: GithubAuth = {
     password: '11235813@Weel'
 }
 
-export const github = new Github(auth)
+const github = new Github(auth)
 
 export const readArticle = async (params: ActionParams) => {
     const data = await github.getUser('calesvolchen').getProfile()
@@ -16,6 +16,8 @@ export const readArticle = async (params: ActionParams) => {
     img.src = data.data.avatar_url
     document.body.appendChild(img)
 }
+
+export const readComments = () => {}
 
 type GithubAuth = {
     username?: string

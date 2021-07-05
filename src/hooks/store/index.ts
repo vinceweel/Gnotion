@@ -15,22 +15,21 @@ import * as githubActions from './github/actions'
 
 const actions = { ...commonActions, ...githubActions }
 
-const genDispatch = (name: Provider) => (
-  action: ActionName,
-  params: ActionParams = {},
-) => {
+const genDispatch = (name: Provider) => (action: ActionName) => {
   const actionsProviders: Record<Provider, Record<string, any>> = {
     github: githubActions,
   }
 
-  const actions = actionsProviders[name]
-  const actionReducer = actions[action]
+  return (params: ActionParams = {}) => {
+    const actions = actionsProviders[name]
+    const actionReducer = actions[action]
 
-  if (actionReducer) return actionReducer(params)
+    if (actionReducer) return actionReducer(params)
 
-  return {
-    action,
-    data: { test: true, ...params },
+    return {
+      action,
+      data: { test: true, ...params },
+    }
   }
 }
 

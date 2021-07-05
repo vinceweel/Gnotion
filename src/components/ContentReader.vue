@@ -1,13 +1,11 @@
 <template>
     <article :class="name">
-        <Api action="readArticle" v-slot="{ action, data }">
-            <p>{{ action }}</p>
-            <p>{{ data }}</p>
+        <Api action="readArticle" v-slot="ret">
+            <p>{{ ret }}</p>
         </Api>
         <hr />
-        <Api action="readComments" :params="{ test: false }" v-slot="{ action, data }">
-            <p>{{ action }}</p>
-            <p>{{ data }}</p>
+        <Api action="readComments" :params="{ test: false }" v-slot="ret">
+            <p>{{ ret }}</p>
         </Api>
     </article>
 </template>

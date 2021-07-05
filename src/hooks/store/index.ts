@@ -1,5 +1,10 @@
 import { reactive } from 'vue'
-export * as actions from './actions'
+// import * as actions from './actions'
+// import * as github from './github/actions'
+
+// const actionsProviders: Record<Provider, Record<string, any>> = {
+//     github,
+// }
 
 const theme = reactive({
     dark: false,
@@ -10,34 +15,38 @@ export const state = reactive({
     theme,
 })
 
-export const useDispatch = (action: Action) => {
-    return {}
-}
-
-export const useCommit = () => {}
-
-type ActionName = string
-type ActionParams = { [k: string]: unknown }
-type Action = {
+export type ActionName = string
+export type ActionParams = { [k: string]: unknown }
+export type Action = {
     type: ActionName
     payload?: ActionParams
     meta?: Action['payload']
     error?: null | Error | string
 }
 
-const dispatch = (action: ActionName, params: ActionParams = {}) => {
-    console.log(params)
+const genDispatch = (name: Provider) => async (
+    action: ActionName,
+    params: ActionParams = {},
+) => {
+    const actionsProviders: Record<Provider, Record<string, any>> = {
+        github: await import('./github/actions'),
+    }
+
+    const actions = actionsProviders[name]
+    const actionReducer = actions[action]
+
+    if (actionReducer) return await actionReducer(params)
+
     return {
         action,
-        data: { test: true, ...params }
+        data: { test: true, ...params },
     }
 }
-
-const useStore = (provider: Provider) => {
-    return { dispatch }
+const useStore = (name: Provider = 'github') => {
+    return { dispatch: genDispatch(name) }
 }
 
 export default useStore
 
-export type Provider = 'github' | 'other'
+export type Provider = 'github' | string
 export type Engine = 'issue' | 'repo' | 'webdav' | 'wiki'

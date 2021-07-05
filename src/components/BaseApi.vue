@@ -1,5 +1,5 @@
 <template>
-    <slot v-bind="response" />
+    <slot v-bind="result" />
 </template>
 
 <script lang="ts">
@@ -15,16 +15,13 @@ type Props = {
 
 export default defineComponent({
     props: ['provider', 'action', 'params'],
+
     setup({ provider = 'github', action, params }: Props) {
         const { dispatch } = useStore(provider)
-console.log(params)
-        const response = dispatch(action, params)
-        const payload = ref({})
 
-        return {
-            response,
-            payload,
-        }
+        const result = dispatch(action, params)
+
+        return { result }
     },
 })
 </script>

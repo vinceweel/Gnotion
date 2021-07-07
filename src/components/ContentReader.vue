@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineAsyncComponent, defineComponent } from 'vue'
 // import Api from './BaseApi.vue'
-const Api = defineAsyncComponent(() => import('./BaseApi.vue'))
+const Api = defineAsyncComponent(() => import('./core/Api.vue'))
 
 const name = 'ContentReader'
 

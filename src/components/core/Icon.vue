@@ -4,8 +4,8 @@
     version="1.1"
     :class="[name, icon]"
     :viewBox="`0 0 ${viewBoxSize} ${viewBoxSize}`"
-    :width="width ?? size"
-    :height="height ?? size"
+    :width="width || size"
+    :height="height || size"
     :role="role"
   >
     <g :fill="color">
@@ -31,7 +31,7 @@ export default defineComponent({
     role = 'presentation',
     viewBoxSize = 1024,
   }) {
-    const Icon = defineAsyncComponent(() => import(`./icons/${icon}.vue`))
+    const Icon = defineAsyncComponent(() => import(`../icons/${icon}.vue`))
     return { name, color, size, width, height, icon, Icon, role, viewBoxSize }
   },
 })

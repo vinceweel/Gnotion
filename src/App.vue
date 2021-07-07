@@ -1,16 +1,16 @@
 <template>
-    <MainView />
+    <ActivityNotion />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import MainView from './views/Main.vue'
+import { ActivityNotion } from './activities'
 
 export default defineComponent({
     name: 'Gnotion',
     components: {
-        MainView,
+        ActivityNotion,
     },
 })
 </script>

@@ -5,8 +5,8 @@
 <script lang="ts">
 import { defineComponent, ref, onBeforeMount } from 'vue'
 
-import useStore, { ActionName, Provider } from '../hooks/store'
-import { useProcess } from '../hooks/store/github/utils'
+import useStore, { ActionName, Provider } from '../../hooks/store'
+import { useProcess } from '../../hooks/store/github/utils'
 
 type Props = {
   provider?: Provider

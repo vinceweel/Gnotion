@@ -1,8 +1,11 @@
 :root {
   --color-primary: #0084ffff;
 
-  --universal-action-x: 50vw;
-  --universal-action-y: 50vh;
+  --color-light-ffffff: #ffffffff;
+
+  --card-radius-normal: 8px;
+  --card-padding-normal: 16px;
+  --card-shadow-normal: 0px 0px 1px 0px #50626230, 0px 0px 4px 2px #bcdbdb57;
 }
 
 *,
@@ -12,7 +15,15 @@
 }
 
 #app {
-  font-family: "Noto Sans", Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans', Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+._zero_ {
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
 }

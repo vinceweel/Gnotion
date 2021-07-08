@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import * as components from '../components'
+import components from '../components'
 
 export default defineComponent({
   name: 'ActivityNotion',

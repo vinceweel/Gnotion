@@ -4,8 +4,8 @@
     version="1.1"
     :class="[name, icon]"
     :viewBox="`0 0 ${viewBoxSize} ${viewBoxSize}`"
-    :width="width || size"
-    :height="height || size"
+    :width="width ?? size"
+    :height="height ?? size"
     :role="role"
   >
     <g :fill="color">

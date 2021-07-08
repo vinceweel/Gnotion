@@ -1,7 +1,7 @@
 <template>
   <article :class="name">
     <Api action="readArticle" v-slot="{ result, loading, refresh }">
-      loading: {{ loading }}
+      loading: {{ loading }} 
       <p>{{ result }}</p>
       <button @click="() => refresh({ test: new Date().getTime() })">
         refresh
@@ -16,8 +16,8 @@
 
 <script lang="ts">
 import { defineAsyncComponent, defineComponent } from 'vue'
-// import Api from './BaseApi.vue'
-const Api = defineAsyncComponent(() => import('./core/Api.vue'))
+
+const Api = defineAsyncComponent(() => import('../core/Api.vue'))
 
 const name = 'ContentReader'
 

@@ -1,30 +1,44 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import useConsole from '../console'
 
-const theme = reactive({
+export const THEME = Symbol('theme')
+const _theme = {
   dark: false,
   light: true,
-})
+}
+const theme = reactive(_theme)
+
+export const NOTION = Symbol('notion')
+const _notion = {
+  fab: true,
+  drawer: false,
+  browser: false,
+}
+export type NotionComponentNames = keyof typeof _notion
+const notion: Record<NotionComponentNames, boolean> = reactive(_notion)
 
 export const state = reactive({
-  theme,
+  _mode_: NOTION as typeof NOTION,
+
+  [THEME]: theme,
+  [NOTION]: notion,
 })
 
 import * as commonActions from './actions'
 import * as githubActions from './github/actions'
 
-const actions = { ...commonActions, ...githubActions }
+export const actions = { ...commonActions, ...githubActions }
 
 const genDispatch = (name: Provider) => (action: ActionName) => {
   const actionsProviders: Record<Provider, Record<string, any>> = {
     github: githubActions,
   }
 
-  return (params: ActionParams = {}) => {
+  return (...params: any[]) => {
     const actions = actionsProviders[name]
     const actionReducer = actions[action]
 
-    if (actionReducer) return actionReducer(params)
+    if (actionReducer) return actionReducer(...params)
 
     return {
       action,
@@ -35,11 +49,40 @@ const genDispatch = (name: Provider) => (action: ActionName) => {
 
 const hasAction = (action: ActionName) => Object.keys(actions).includes(action)
 
+import * as commonMutations from './mutations'
+import * as githubMutations from './github/mutations'
+
+export const mutations = { ...commonMutations, ...githubMutations }
+
+const genCommit =
+  (name: Provider) =>
+  (mutation: string, ...params: any[]): void => {
+    const mutationsProviders: Record<Provider, Record<string, any>> = {
+      github: githubMutations,
+    }
+
+    const _mutations = mutationsProviders[name]
+    const mutationReducer = _mutations[mutation]
+    console.log(mutations, params)
+
+    if (mutationReducer) mutationReducer(...params)
+  }
+
+const hasMutation = (mutation: MutationName) =>
+  Object.keys(mutations).includes(mutation)
+
 const useStore = (name: Provider = 'github') => {
   const { log } = useConsole('useStore')
   log('test')
 
-  return { hasAction, dispatch: genDispatch(name) }
+  return {
+    state,
+
+    hasMutation,
+    commit: genCommit(name),
+    hasAction,
+    dispatch: genDispatch(name),
+  }
 }
 
 export default useStore
@@ -55,3 +98,5 @@ export type Action = {
   meta?: Action['payload']
   error?: null | Error | string
 }
+
+export type MutationName = keyof typeof mutations

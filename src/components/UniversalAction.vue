@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
-import Icon from './BaseIcon.vue'
+import Icon from './core/Icon.vue'
 
 const name = `UniversalAction`
 

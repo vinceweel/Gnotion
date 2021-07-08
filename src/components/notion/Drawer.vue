@@ -20,28 +20,35 @@ export default defineComponent({
 })
 </script>
 
+<style>
+:root {
+  --drawer-hegiht: calc(100vh - var(--padding-normal) - var(--fab-offset-y));
+  --drawer-width: 240px;
+
+  --drawer-offset-x: 0;
+  --drawer-offset-y: calc(var(--padding-normal) * 0 + var(--fab-offset-y));
+  --drawer-show: 0;
+}
+</style>
+
 <style scoped>
 .Drawer {
-  --drawer-hegiht: 100vh;
-  --drawer-width: 240px;
-  --drawer-warp-padding: 16px;
-
-  z-index: 6;
+  z-index: 16;
 }
 
-.Drawer.on > .wrap {
-  transform: translateX(var(--drawer-width));
-  opacity: 1;
+.Drawer.on {
+  --drawer-offset-x: calc(var(--drawer-width) + var(--padding-normal));
+  --drawer-show: 1;
 }
 
 .wrap {
-  transform: 0;
-  opacity: 0;
+  transform: translateX(var(--drawer-offset-x));
+  opacity: var(--drawer-show);
 
-  transition: opacity .25s ease-in-out, transform 0.25s ease-in-out;
+  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
 
-  left: calc(var(--drawer-width) * -1 + var(--drawer-warp-padding));
-  top: var(--drawer-warp-padding);
+  left: calc(var(--drawer-width) * -1);
+  top: var(--drawer-offset-y);
   position: relative;
 
   /* backdrop-filter: blur(2px); */
@@ -49,8 +56,8 @@ export default defineComponent({
   border-radius: var(--card-radius-normal);
   background-color: var(--color-light-ffffff);
 
-  height: calc(var(--drawer-hegiht) - var(--drawer-warp-padding) * 2);
-  width: calc(var(--drawer-width) - var(--drawer-warp-padding) * 2);
+  height: var(--drawer-hegiht);
+  width: var(--drawer-width);
   padding: var(--card-padding-normal);
   overflow: hidden;
 }

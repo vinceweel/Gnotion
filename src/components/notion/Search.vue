@@ -1,7 +1,8 @@
 <template>
   <div :class="[name]">
-    <button @click="toggleDrawer" :class="['_unset_', '_center_', 'action']">
-      <Icon name="menu" size="24" />
+    <button @click="drawerToggle" :class="['_unset_', '_center_', 'action']">
+      <Icon v-if="!drawerOn" name="menu" />
+      <Icon v-else name="arrow-back" />
     </button>
     <input
       type="text"
@@ -13,8 +14,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { Icon } from '../'
+import { useI18n } from 'vue-i18n'
 import { useToggle } from '../../hooks/notion'
 
 const name = 'Search'
@@ -26,8 +27,10 @@ export default defineComponent({
   },
   setup() {
     const { t } = useI18n()
-    const [, toggleDrawer] = useToggle('drawer')
-    return { name, t, toggleDrawer }
+
+    const [drawerOn, drawerToggle] = useToggle('drawer')
+
+    return { name, t, drawerOn, drawerToggle }
   },
 })
 </script>
@@ -38,8 +41,10 @@ export default defineComponent({
 }
 
 .input {
+  height: 100%;
   width: 100%;
   font-size: 13px;
+  margin-right: 16px;
 }
 
 .action {

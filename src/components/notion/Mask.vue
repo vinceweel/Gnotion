@@ -26,7 +26,7 @@ export default defineComponent({
 
 <style scoped>
 .Mask {
-  background-color: #fff;
+  background-color: var(--color-light-ffffff);
   height: 100vh;
   width: 100vw;
   z-index: 3;

@@ -1,5 +1,5 @@
 <template>
-  <div :class="['_zero_', name, on && 'on']">
+  <div :class="['_zero_', name, !on && 'off']">
     <div class="wrap">
       <Avatar class="avatar" :size="32" url="" />
       <button :class="['_unset_', '_center_', 'action']">
@@ -40,28 +40,61 @@ export default defineComponent({
 })
 </script>
 
+<style>
+:root {
+  --fab-hegiht: 52px;
+  --fab-width: calc(100vw);
+
+  --fab-offset-y: calc(var(--fab-hegiht));
+}
+</style>
+
 <style scoped>
 .FloatActionBar {
-  --fab-hegiht: 56px;
-  --fab-width: calc(100vw);
   --action-size: 32px;
 
   z-index: 9;
 }
 
-.wrap {
+.FloatActionBar::before {
+  content: '';
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-light-ffffff),
+    transparent
+  );
   height: var(--fab-hegiht);
   width: var(--fab-width);
+  display: block;
+  position: absolute;
+}
+
+.FloatActionBar.off {
+  --fab-offset-y: 0;
+}
+
+.wrap {
+  transform: translateY(var(--fab-offset-y));
+  
+  left: 0;
+  top: calc(var(--fab-hegiht) * -1);
+  position: relative;
+
+  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+
+  height: var(--fab-hegiht);
+  width: var(--fab-width);
+
+  padding: 0 8px;
+
   justify-content: space-between;
   align-items: center;
   display: flex;
-  position: relative;
 }
 
 .avatar,
 .action {
   width: var(--action-size);
-  margin: 0 8px;
   flex-shrink: 0;
 }
 
@@ -76,5 +109,6 @@ export default defineComponent({
   box-shadow: var(--card-shadow-normal);
   background-color: var(--color-light-ffffff);
   height: var(--action-size);
+  margin: 0 4px;
 }
 </style>

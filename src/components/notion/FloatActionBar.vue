@@ -25,5 +25,7 @@ export default defineComponent({
   --fab-hegiht: 56px;
   --fab-width: calc(100vw - 32px);
   --fab-warp-padding: 16px;
+
+  z-index: 9;
 }
 </style>

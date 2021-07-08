@@ -14,6 +14,7 @@ export default defineComponent({
   name,
   setup() {
     const [on] = useToggle('drawer')
+    console.log(on)
     return { name, on }
   },
 })
@@ -24,20 +25,24 @@ export default defineComponent({
   --drawer-hegiht: 100vh;
   --drawer-width: 240px;
   --drawer-warp-padding: 16px;
+
+  z-index: 6;
 }
 
 .Drawer.on > .wrap {
   transform: translateX(var(--drawer-width));
+  opacity: 1;
 }
 
 .wrap {
   transform: 0;
+  opacity: 0;
+
+  transition: opacity .25s ease-in-out, transform 0.25s ease-in-out;
 
   left: calc(var(--drawer-width) * -1 + var(--drawer-warp-padding));
   top: var(--drawer-warp-padding);
   position: relative;
-
-  transition: transform 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
 
   /* backdrop-filter: blur(2px); */
   box-shadow: var(--card-shadow-normal);

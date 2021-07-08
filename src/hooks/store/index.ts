@@ -63,7 +63,6 @@ const genCommit =
 
     const _mutations = mutationsProviders[name]
     const mutationReducer = _mutations[mutation]
-    console.log(mutations, params)
 
     if (mutationReducer) mutationReducer(...params)
   }

@@ -1,4 +1,5 @@
 <template>
+  <Mask />
   <FloatActionBar />
   <Drawer />
   <Browser />

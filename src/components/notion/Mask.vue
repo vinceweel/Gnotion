@@ -29,6 +29,6 @@ export default defineComponent({
   background-color: var(--color-light-ffffff);
   height: 100vh;
   width: 100vw;
-  z-index: 3;
+  z-index: 8;
 }
 </style>

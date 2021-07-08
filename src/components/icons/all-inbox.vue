@@ -5,6 +5,18 @@
   />
   <path
     d="M8.13 10H5v2h4.4c-.6-.53-1.06-1.22-1.27-2zm6.47 2H19v-2h-3.13c-.21.78-.67 1.47-1.27 2zm-6.38 5.25c-.03-.08-.06-.16-.09-.25H5v2h4.4c-.53-.47-.94-1.07-1.18-1.75zm7.65-.25c-.02.09-.06.17-.09.25-.23.68-.64 1.28-1.18 1.75H19v-2h-3.13z"
-    opacity=".3"
+    :opacity="on ? '1' : '.3'"
   />
 </template>
+
+<script lang="ts">
+import { computed, defineComponent } from 'vue'
+import { useToggle } from '../../hooks/notion'
+
+export default defineComponent({
+  setup() {
+    const [on] = useToggle('browser')
+    return { on }
+  },
+})
+</script>

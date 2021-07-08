@@ -12,7 +12,7 @@ export const NOTION = Symbol('notion')
 const _notion = {
   fab: true,
   drawer: false,
-  browser: false,
+  browser: true,
   mask: false,
 }
 export type NotionComponentNames = keyof typeof _notion

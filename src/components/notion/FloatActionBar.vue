@@ -2,7 +2,7 @@
   <div :class="['_zero_', name, !on && 'off']">
     <div class="wrap">
       <Avatar class="avatar" :size="32" url="" />
-      <button :class="['_unset_', '_center_', 'action']">
+      <button :class="['_unset_', '_center_', 'action']" @click="browserToggle">
         <Icon name="all-inbox" size="24" />
       </button>
       <Search class="search" />
@@ -33,9 +33,12 @@ export default defineComponent({
   },
   setup() {
     const { t } = useI18n()
-    const [, toggleDrawer] = useToggle('drawer')
+
+    const [, browserToggle] = useToggle('browser')
+
     const [on] = useToggle('fab')
-    return { name, t, toggleDrawer, on }
+
+    return { name, t, browserToggle, on }
   },
 })
 </script>
@@ -75,7 +78,7 @@ export default defineComponent({
 
 .wrap {
   transform: translateY(var(--fab-offset-y));
-  
+
   left: 0;
   top: calc(var(--fab-hegiht) * -1);
   position: relative;

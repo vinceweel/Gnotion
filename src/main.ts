@@ -9,5 +9,32 @@ import 'normalize.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
+const app = createApp(App)
 
-createApp(App).mount('#app')
+import { createI18n, I18nOptions } from 'vue-i18n'
+const i18nOptions: I18nOptions = {
+  legacy: false,
+  locale: navigator.language,
+  fallbackWarn: false,
+  fallbackLocale: 'en',
+  messages: {
+    en: {
+      search: 'Search',
+      avatar: 'Avatar',
+    },
+    get ['en-US']() {
+      return this.en
+    },
+    zh: {
+      search: '搜索',
+      avatar: '头像',
+    },
+    get ['zh-CN']() {
+      return this.zh
+    },
+  },
+}
+const i18n = createI18n(i18nOptions)
+app.use(i18n)
+
+app.mount('#app')

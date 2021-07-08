@@ -29,7 +29,7 @@ export default defineComponent({
     width,
     height,
     role = 'presentation',
-    viewBoxSize = 1024,
+    viewBoxSize = 24,
   }) {
     const Icon = defineAsyncComponent(() => import(`../icons/${icon}.vue`))
     return { name, color, size, width, height, icon, Icon, role, viewBoxSize }

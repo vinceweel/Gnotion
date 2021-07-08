@@ -1,9 +1,9 @@
 <template>
-  <div :class="['_zero_', name]" @click="clear"></div>
+  <div v-show="on" :class="['_zero_', name]" @click="clear"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useToggle } from '../../hooks/notion'
 
 const name = 'Mask'
@@ -11,12 +11,15 @@ const name = 'Mask'
 export default defineComponent({
   name,
   setup() {
-    const [, toggleDrawer] = useToggle('drawer')
+    const [statusDrawer, toggleDrawer] = useToggle('drawer')
+
+    const on = computed(() => statusDrawer.value)
+
     const clear = () => {
       toggleDrawer(false)
     }
 
-    return { name, clear }
+    return { name, on, clear }
   },
 })
 </script>

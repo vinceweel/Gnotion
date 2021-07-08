@@ -9,5 +9,9 @@ const components = Object.entries(import.meta.glob('./**/*.vue'))
 
 export default Object.fromEntries(components)
 
-// export { default as Icon } from './core/Icon.vue'
-// export { default as Api } from './core/Api.vue'
+export { default as Icon } from './core/Icon.vue'
+export { default as Api } from './core/Api.vue'
+
+export { default as Avatar } from './Avatar.vue'
+
+export { default as Search } from './notion/Search.vue'

@@ -1,10 +1,10 @@
 <template>
-  <Mask />
   <FloatActionBar />
   <Drawer />
   <Browser />
   <Reader />
   <Editor />
+  <Mask />
 </template>
 
 <script lang="ts">

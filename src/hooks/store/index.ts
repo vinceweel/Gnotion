@@ -13,6 +13,7 @@ const _notion = {
   fab: true,
   drawer: false,
   browser: false,
+  mask: false,
 }
 export type NotionComponentNames = keyof typeof _notion
 const notion: Record<NotionComponentNames, boolean> = reactive(_notion)

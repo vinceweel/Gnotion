@@ -27,3 +27,28 @@
   left: 0;
   position: absolute;
 }
+
+._center_ {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+button._unset_ {
+  border: unset;
+  padding: unset;
+  line-height: unset;
+  background: unset;
+}
+
+input._unset_ {
+  border: unset;
+  padding: unset;
+  margin: unset;
+  background: unset;
+  outline: unset;
+}
+
+button.action:active {
+  opacity: 0.6;
+}

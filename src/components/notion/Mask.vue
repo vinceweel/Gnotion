@@ -1,5 +1,7 @@
 <template>
-  <div v-show="on" :class="['_zero_', name]" @click="clear"></div>
+  <div v-show="on" :class="['_zero_', name]" @click="clear">
+    <div class="wrap _blur_"></div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -26,9 +28,12 @@ export default defineComponent({
 
 <style scoped>
 .Mask {
+  z-index: 8;
+}
+
+.wrap {
   background-color: var(--color-light-ffffff);
   height: 100vh;
   width: 100vw;
-  z-index: 8;
 }
 </style>

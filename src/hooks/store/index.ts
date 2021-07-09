@@ -12,8 +12,9 @@ export const NOTION = Symbol('notion')
 const _notion = {
   fab: true,
   drawer: false,
-  browser: true,
+  browser: false,
   mask: false,
+  editor: false,
 }
 export type NotionComponentNames = keyof typeof _notion
 const notion: Record<NotionComponentNames, boolean> = reactive(_notion)

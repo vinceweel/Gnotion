@@ -1,7 +1,7 @@
 <template>
   <div :class="['_zero_', name, !on && 'off']">
     <div class="wrap">
-      <Avatar class="avatar" :size="32" url="" />
+      <Avatar class="avatar" :size="42" url="" />
       <button :class="['_unset_', '_center_', 'action']" @click="browserToggle">
         <Icon name="all-inbox" size="24" />
       </button>
@@ -48,13 +48,13 @@ export default defineComponent({
   --fab-hegiht: 52px;
   --fab-width: calc(100vw);
 
-  --fab-offset-y: calc(var(--fab-hegiht));
+  --fab-offset-y: calc(var(--fab-hegiht) + 4px);
 }
 </style>
 
 <style scoped>
 .FloatActionBar {
-  --action-size: 32px;
+  --action-size: 42px;
 
   z-index: 9;
 }

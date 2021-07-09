@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Avatar, Icon } from '../'
 
 const name = 'DiscussEditor'
@@ -8,9 +9,9 @@ export default defineComponent({
   name,
   components: { Avatar, Icon },
   setup() {
-    const slogn = ref('Login from Github >>')
+    const { t } = useI18n()
 
-    return { name, slogn }
+    return { name, t }
   },
 })
 </script>
@@ -22,10 +23,13 @@ export default defineComponent({
         <template v-if="true">
           <Avatar class="avatar" :size="42" />
           <i class="info">
-            <span class="name">Guest</span>
+            <span class="name">{{ t('guest') }}</span>
           </i>
-          <span class="slogn">{{ slogn }}</span>
-          <button :class="['_unset_', 'action']"><Icon name="github" /></button>
+
+          <button :class="['_unset_', 'action']">
+            <span class="slogn">{{ t('slogn') }}</span>
+            <Icon class="icon" name="github" />
+          </button>
         </template>
       </div>
     </div>
@@ -36,8 +40,7 @@ export default defineComponent({
 .DiscussEditor {
   --float-bar-height: 48px;
 
-  height: 0;
-  width: 100vw;
+  top: var(--fab-offset-y);
   bottom: 0;
   position: sticky;
 }
@@ -50,8 +53,7 @@ export default defineComponent({
 
 .float-bar {
   --blur-size: 5px;
-    top: -48px;
-    position: relative;
+
   border-radius: var(--float-bar-height);
   box-shadow: var(--card-shadow-normal);
   height: var(--float-bar-height);
@@ -60,6 +62,7 @@ export default defineComponent({
   padding: 0 4px;
   align-items: center;
   display: flex;
+  position: relative;
 }
 
 .float-bar > * {
@@ -75,13 +78,16 @@ export default defineComponent({
 }
 
 .slogn {
-  margin-left: auto;
   opacity: 0.5;
 }
 
 .float-bar .action {
-  --size: 42px;
-  height: var(--size);
-  width: var(--size);
+  margin-left: auto;
+  align-items: center;
+  display: flex;
+}
+
+.float-bar .action .icon {
+  margin: 0 8px;
 }
 </style>

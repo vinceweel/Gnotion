@@ -46,7 +46,7 @@ export default defineComponent({
 <style>
 :root {
   --fab-hegiht: 52px;
-  --fab-width: calc(100vw);
+  --fab-width: calc(var(--body-width));
 
   --fab-offset-y: calc(var(--fab-hegiht) + 4px);
 }
@@ -56,6 +56,7 @@ export default defineComponent({
 .FloatActionBar {
   --action-size: 42px;
 
+  width: var(--body-width);
   z-index: 9;
 }
 

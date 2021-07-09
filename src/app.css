@@ -10,6 +10,8 @@
   --card-shadow-normal: 0px 0px 1px 0px #50626230, 0px 0px 4px 2px #bcdbdb57;
 
   --blur-size: 2px;
+
+  --body-width: 100%;
 }
 
 *,
@@ -19,13 +21,12 @@
   user-select: none;
 }
 
-#app {
-  height: 100vh;
-  /* overflow-x: hidden; */
+body {
+  overflow-x: hidden;
   position: relative;
-
+  
   font-family: 'Noto Sans', Avenir, Helvetica, Arial, sans-serif;
-
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

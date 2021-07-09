@@ -73,14 +73,12 @@ const hasMutation = (mutation: MutationName) =>
   Object.keys(mutations).includes(mutation)
 
 const useStore = (name: Provider = 'github') => {
-  const { log } = useConsole('useStore')
-  log('test')
-
   return {
     state,
 
     hasMutation,
     commit: genCommit(name),
+
     hasAction,
     dispatch: genDispatch(name),
   }

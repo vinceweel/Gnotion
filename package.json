@@ -16,12 +16,14 @@
   },
   "dependencies": {
     "github-api": "^3.4.0",
+    "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "swrv": "^1.0.0-beta.8",
     "vue": "^3.0.5",
     "vue-i18n": "^9.1.6"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.171",
     "@types/node": "^16.0.0",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.0.5",

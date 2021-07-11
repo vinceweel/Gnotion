@@ -14,7 +14,7 @@ export default defineComponent({
   name,
   setup() {
     const [on] = useToggle('drawer')
-    console.log(on)
+
     return { name, on }
   },
 })

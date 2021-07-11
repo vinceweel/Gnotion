@@ -1,3 +1,35 @@
+<script lang="ts">
+import { defineComponent, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useToggle } from '../../hooks/notion'
+import { useScrolling } from '../../hooks/utils'
+import { Avatar, Icon, Search } from '../'
+
+const name = 'FloatActionBar'
+
+export default defineComponent({
+  name,
+  components: {
+    Avatar,
+    Icon,
+    Search,
+  },
+  setup() {
+    const { t } = useI18n()
+
+    const [, browserToggle] = useToggle('browser')
+
+    const { isDown } = useScrolling({ wait: 1200 })
+
+    const [on, toggle] = useToggle('fab')
+
+    watch(isDown, () => toggle())
+
+    return { name, t, browserToggle, on }
+  },
+})
+</script>
+
 <template>
   <div :class="['_zero_', name, !on && 'off']">
     <div class="wrap">
@@ -15,33 +47,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useToggle } from '../../hooks/notion'
-import { Avatar, Icon, Search } from '../'
-
-const name = 'FloatActionBar'
-
-export default defineComponent({
-  name,
-  components: {
-    Avatar,
-    Icon,
-    Search,
-  },
-  setup() {
-    const { t } = useI18n()
-
-    const [, browserToggle] = useToggle('browser')
-
-    const [on] = useToggle('fab')
-
-    return { name, t, browserToggle, on }
-  },
-})
-</script>
 
 <style>
 :root {

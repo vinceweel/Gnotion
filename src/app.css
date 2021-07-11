@@ -2,6 +2,7 @@
   --color-primary: #0084ffff;
 
   --color-light-ffffff: #ffffffff;
+  --color-light-efefef: #efefefff;
 
   --padding-normal: 16px;
 
@@ -21,10 +22,7 @@
   user-select: none;
 }
 
-body {
-  overflow-x: hidden;
-  position: relative;
-  
+#app {
   font-family: 'Noto Sans', Avenir, Helvetica, Arial, sans-serif;
   
   -webkit-font-smoothing: antialiased;
@@ -45,6 +43,11 @@ body {
   display: flex;
 }
 
+._center-items_ {
+  align-items: center;
+  display: flex;
+}
+
 button._unset_ {
   border: unset;
   padding: unset;
@@ -52,7 +55,8 @@ button._unset_ {
   background: unset;
 }
 
-input._unset_ {
+input._unset_,
+textarea._unset_ {
   border: unset;
   padding: unset;
   margin: unset;

@@ -4,7 +4,9 @@ const en = {
   search: 'Search',
   avatar: 'Avatar',
   guest: 'Guest',
-  slogn: 'Login from Github >>'
+  slogn: 'Login from Github >>',
+
+  editor_placeholder: 'Want to Say Something ? ...'
 }
 
 const zh = {
@@ -12,7 +14,9 @@ const zh = {
   search: '搜索',
   avatar: '头像',
   guest: '看客',
-  slogn: '通过 Github 登陆 >>'
+  slogn: '通过 Github 登陆 >>',
+
+  editor_placeholder: '不想说点啥么？……'
 }
 
 const i18nOptions: I18nOptions = {

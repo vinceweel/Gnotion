@@ -78,8 +78,7 @@ export default defineComponent({
 }
 
 .on.float-bar {
-  box-shadow: 0 0 0 1px var(--color-light-efefef);
-  /* box-shadow: unset; */
+  box-shadow: var(--card-shadow-border);
 }
 
 .on.editor {

@@ -3,14 +3,18 @@
 
   --color-light-ffffff: #ffffffff;
   --color-light-efefef: #efefefff;
+  --color-light-5a5a5a: #5a5a5aff;
 
   --padding-normal: 16px;
 
   --card-radius-normal: 8px;
   --card-padding-normal: 16px;
   --card-shadow-normal: 0px 0px 1px 0px #50626230, 0px 0px 4px 2px #bcdbdb57;
+  --card-shadow-border: 0 0 0 1px var(--color-light-efefef);
 
   --blur-size: 2px;
+
+  --transition-fade-ease: visibility 0.25s ease, opacity 0.25s ease;
 
   --body-width: 100%;
 }
@@ -24,7 +28,7 @@
 
 #app {
   font-family: 'Noto Sans', Avenir, Helvetica, Arial, sans-serif;
-  
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -48,11 +52,24 @@
   display: flex;
 }
 
+a._unset_ {
+  color: var(--color-primary);
+  text-decoration: unset;
+}
+
+a._unset_:active {
+  filter: brightness(0.8);
+}
+
 button._unset_ {
   border: unset;
   padding: unset;
   line-height: unset;
   background: unset;
+}
+
+button._unset_.action:active {
+  filter: brightness(0.8);
 }
 
 input._unset_,
@@ -62,10 +79,6 @@ textarea._unset_ {
   margin: unset;
   background: unset;
   outline: unset;
-}
-
-button._unset_.action:active {
-  filter: brightness(0.8);
 }
 
 ._blur_._blur_._blur_._blur_._blur_ {

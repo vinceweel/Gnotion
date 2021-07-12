@@ -30,7 +30,7 @@ export const useScrolling = (options: Options = {}) => {
   const observeIntersections = () => {
     intersection.value = _observeTargets.map(
       ({ value: target }: Ref<Element>) => {
-        const { y } = target.getBoundingClientRect()
+        const { y = 0 } = target?.getBoundingClientRect() ?? {}
         return {
           appear: position.y - y > 0,
         }
@@ -40,7 +40,6 @@ export const useScrolling = (options: Options = {}) => {
   const observe = (target: Ref<Element | null>) => {
     target.value && _observeTargets.push(target as Ref<Element>)
     nextTick(observeIntersections)
-    // observeIntersections()
   }
 
   const listener = throttle(wait)(() => {
@@ -55,13 +54,6 @@ export const useScrolling = (options: Options = {}) => {
 
   window.addEventListener('scroll', listener, false)
 
-  const isIntersection = (target: null | HTMLElement): boolean => {
-    if (target === null) return false
-    const { y } = target.getBoundingClientRect()
-    console.log(target, position.y, y)
-    return position.y - y > 0
-  }
-
   return {
     position,
     distance,
@@ -69,7 +61,6 @@ export const useScrolling = (options: Options = {}) => {
     isDown,
     intersection,
     observe,
-    isIntersection,
   }
 }
 

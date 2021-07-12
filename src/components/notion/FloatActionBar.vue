@@ -1,9 +1,9 @@
 <script lang="ts">
-import { defineComponent, watch } from 'vue'
+import { defineComponent, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useToggle } from '../../hooks/notion'
 import { useScrolling } from '../../hooks/utils'
-import { Avatar, Icon, Search } from '../'
+import { Avatar, Icon, Search, FloatActionMenu as Menu } from '../'
 
 const name = 'FloatActionBar'
 
@@ -13,19 +13,51 @@ export default defineComponent({
     Avatar,
     Icon,
     Search,
+    Menu,
   },
   setup() {
     const { t } = useI18n()
-
     const [, browserToggle] = useToggle('browser')
 
     const { isDown } = useScrolling({ wait: 1200 })
-
     const [on, toggle] = useToggle('fab')
-
     watch(isDown, () => toggle())
 
-    return { name, t, browserToggle, on }
+    const moreMenuWidth = ref(0)
+    const showMoreMenu = ref(false)
+    const offsetMoreMenu = reactive({ x: 0, y: 59 })
+    const toggleMoreMenu = ({ currentTarget }: Event) => {
+      if (currentTarget === null) return
+      const { x, y } = (currentTarget as Element).getBoundingClientRect()
+      showMoreMenu.value = !showMoreMenu.value
+      offsetMoreMenu.x =
+        x + (currentTarget as Element).clientWidth - moreMenuWidth.value + 8
+    }
+
+    const ownerMenuWidth = ref(0)
+    const showOwnerMenu = ref(false)
+    const offsetOwnerMenu = reactive({ x: 0, y: 59 })
+    const toggleOwnerMenu = ({ currentTarget }: Event) => {
+      if (currentTarget === null) return
+      const { x, y } = (currentTarget as Element).getBoundingClientRect()
+      showOwnerMenu.value = !showOwnerMenu.value
+      offsetOwnerMenu.x = x - 4
+    }
+
+    return {
+      name,
+      t,
+      browserToggle,
+      on,
+      moreMenuWidth,
+      showMoreMenu,
+      offsetMoreMenu,
+      toggleMoreMenu,
+      ownerMenuWidth,
+      showOwnerMenu,
+      offsetOwnerMenu,
+      toggleOwnerMenu,
+    }
   },
 })
 </script>
@@ -33,7 +65,12 @@ export default defineComponent({
 <template>
   <div :class="['_zero_', name, !on && 'off']">
     <div class="wrap">
-      <Avatar class="avatar" :size="42" url="" />
+      <Avatar
+        @click="toggleOwnerMenu"
+        :class="['avatar', showOwnerMenu && 'on']"
+        :size="42"
+        url=""
+      />
       <button :class="['_unset_', '_center_', 'action']" @click="browserToggle">
         <Icon name="all-inbox" size="24" />
       </button>
@@ -41,11 +78,45 @@ export default defineComponent({
       <button :class="['_unset_', '_center_', 'action']">
         <Icon name="sync" size="24" />
       </button>
-      <button :class="['_unset_', '_center_', 'action']">
-        <Icon name="more-vert" size="24" />
+      <button
+        @click="toggleMoreMenu"
+        :class="['_unset_', '_center_', 'action', showMoreMenu && 'on']"
+      >
+        <Icon v-if="!showMoreMenu" name="more-vert" size="24" />
+        <Icon v-else name="expand-less" size="24" />
       </button>
     </div>
   </div>
+
+  <Menu
+    v-model:width="moreMenuWidth"
+    :on="showMoreMenu"
+    :offset="offsetMoreMenu"
+    class="moreMenu"
+  >
+    <header>{{ t('more_menu') }}</header>
+    <nav>
+      <a><Icon name="settings" />{{ t('settings') }}</a>
+      <a
+        class="_unset_"
+        target="_blank"
+        href="https://github.com/vinceweel/Gnotion"
+      >
+        <Icon name="github" />{{ t('repo_link') }}
+      </a>
+    </nav>
+  </Menu>
+  <Menu
+    v-model:width="ownerMenuWidth"
+    :on="showOwnerMenu"
+    :offset="offsetOwnerMenu"
+    class="ownerMenu"
+  >
+    <header>Owner Name</header>
+    <nav>
+      <a><Icon name="contact-mail" />vince.weel.io@outlook.com</a>
+    </nav>
+  </Menu>
 </template>
 
 <style>
@@ -103,6 +174,7 @@ export default defineComponent({
 
 .avatar,
 .action {
+  transition: transform 0.15s ease;
   width: var(--action-size);
   flex-shrink: 0;
 }
@@ -119,5 +191,49 @@ export default defineComponent({
   background-color: var(--color-light-ffffff);
   height: var(--action-size);
   margin: 0 4px;
+}
+
+.avatar.on,
+.action.on {
+  transform: translateY(54px) scale(0.8);
+  box-shadow: var(--card-shadow-border);
+  box-shadow: unset;
+  background: unset;
+}
+
+.ownerMenu header,
+.moreMenu header {
+  font-size: 13px;
+  box-shadow: var(--card-shadow-border);
+  height: 34px;
+  margin-top: -8px;
+  border-radius: 34px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  margin-left: -8px;
+  margin-right: -8px;
+  color: var(--color-light-5a5a5a);
+}
+.ownerMenu nav,
+.moreMenu nav {
+  font-size: 13px;
+  padding-top: 8px;
+  flex-direction: column;
+  display: flex;
+}
+.ownerMenu nav > a,
+.moreMenu nav > a {
+  height: 32px;
+  align-items: center;
+  display: flex;
+}
+.ownerMenu nav > a > .Icon,
+.moreMenu nav > a > .Icon {
+  margin-right: 8px;
+}
+
+.ownerMenu header {
+  padding-left: 42px;
 }
 </style>

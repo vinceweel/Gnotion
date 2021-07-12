@@ -13,12 +13,14 @@ const name = 'Mask'
 export default defineComponent({
   name,
   setup() {
+    const [on, toggleMask] = useToggle('mask')
     const [statusDrawer, toggleDrawer] = useToggle('drawer')
 
-    const on = computed(() => statusDrawer.value)
+    // const on = computed(() => statusDrawer.value)
 
     const clear = () => {
       toggleDrawer(false)
+      toggleMask(false)
     }
 
     return { name, on, clear }
@@ -28,7 +30,7 @@ export default defineComponent({
 
 <style scoped>
 .Mask {
-  z-index: 8;
+  z-index: 7;
 }
 
 .wrap {

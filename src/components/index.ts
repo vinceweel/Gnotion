@@ -15,3 +15,4 @@ export { default as Api } from './core/Api.vue'
 export { default as Avatar } from './Avatar.vue'
 
 export { default as Search } from './notion/Search.vue'
+export { default as FloatActionMenu } from './notion/FloatActionMenu.vue'

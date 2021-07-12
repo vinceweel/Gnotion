@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, watch } from 'vue'
 import { Icon } from '../'
 import { useI18n } from 'vue-i18n'
 import { useToggle } from '../../hooks/notion'
@@ -28,7 +28,12 @@ export default defineComponent({
   setup() {
     const { t } = useI18n()
 
+    const [, maskToggle] = useToggle('mask')
     const [drawerOn, drawerToggle] = useToggle('drawer')
+
+    watch(drawerOn, () => {
+      maskToggle(drawerOn.value)
+    })
 
     return { name, t, drawerOn, drawerToggle }
   },

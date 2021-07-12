@@ -12,7 +12,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "deploy": "yarn build && gh-pages -d dist"
   },
   "dependencies": {
     "github-api": "^3.4.0",
@@ -30,6 +31,7 @@
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "gh-pages": "^3.2.3",
     "prettier": "^2.3.2",
     "typescript": "^4.3.2",
     "vconsole": "^3.8.1",

@@ -1,24 +1,16 @@
-import Github from 'github-api'
+import { Action } from ".."
 
-import { ActionParams } from '../'
+export const init: Action<void> = async ({ state }, { sources }: Gnotion) => {
+  state['sources'] = sources
+}
 
-const auth: GithubAuth = {}
-
-const github = new Github(auth)
-
-export const readArticle = async (params: ActionParams) => {
+export const readArticle: Action<any> = async ({ log, state }, params: {}) => {
+  log(state.source)
   // const data = await github.getUser('calesvolchen').getProfile()
-  // console.log(data)
-  // const img = new Image(500, 500)
-  // img.src = data.data.avatar_url
-  // document.body.appendChild(img)
-  return { test: 'test', ...params }
+  // console.log(data.data.login)
+  return { test: 'test', ...params } as any
 }
 
 export const readComments = () => ({ a: 'a' })
 
-type GithubAuth = {
-  username?: string
-  password?: string
-  token?: string
-}
+

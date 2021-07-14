@@ -1,4 +1,5 @@
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
+import Github from 'github-api'
 import useConsole from '../console'
 
 export const THEME = Symbol('theme')
@@ -24,7 +25,24 @@ export const state = reactive({
 
   [THEME]: theme,
   [NOTION]: notion,
+
+  sources: [] as Source[],
+  source: {
+    provider: 'github',
+    type: 'issues',
+    url: 'https://github.com/vinceweel/Gnotion',
+  } as Source,
 })
+
+export const actionContext = reactive({
+  ...useConsole('action'),
+  state,
+  get github() {
+    return new Github(state.source)
+  },
+})
+
+// export const github = computed(() => new Github(state.source))
 
 import * as commonActions from './actions'
 import * as githubActions from './github/actions'
@@ -40,12 +58,11 @@ const genDispatch = (name: Provider) => (action: ActionName) => {
     const actions = actionsProviders[name]
     const actionReducer = actions[action]
 
-    if (actionReducer) return actionReducer(...params)
+    if (actionReducer) return actionReducer(actionContext, ...params)
 
-    return {
-      action,
-      data: { test: true, ...params },
-    }
+    useConsole('store').error(
+      `cannot dispatch the action named "${action}", maybe it is not exist?`,
+    )
   }
 }
 
@@ -90,12 +107,15 @@ export type Provider = 'github' | string
 export type Engine = 'issue' | 'repo' | 'webdav' | 'wiki'
 
 export type ActionName = keyof typeof actions
-export type ActionParams = Record<string, any>
-export type Action = {
-  type: ActionName
-  payload?: ActionParams
-  meta?: Action['payload']
-  error?: null | Error | string
-}
+// export type ActionParams = Record<string, any>
+// export type Action = {
+//   type: ActionName
+//   payload?: ActionParams
+//   meta?: Action['payload']
+//   error?: null | Error | string
+// }
 
 export type MutationName = keyof typeof mutations
+
+export type ActionContext = typeof actionContext
+export type Action<T> = (context: ActionContext, ...params: any[]) => Promise<T>

@@ -2,6 +2,7 @@ type apiBase = 'https://api.github.com' | string
 type username = string
 type nickname = string
 type token = string
+type reponame = string
 
 declare class Requestable {
   constructor(
@@ -30,11 +31,22 @@ declare class Gist {
   constructor(id: string, auth: Requestable['auth'])
 }
 
+declare class Issue {
+  constructor(
+    repository: reponame,
+    auth?: Requestable['auth'],
+    apiBase?: apiBase,
+  )
+
+  listIssues(options: IssueFilter): PromiseHttpRequest<IssueData[]>
+}
+
 declare class Github {
   constructor(auth?: Requestable['auth'], apiBase?: apiBase)
 
-  getUser(user?: string): User
+  getUser(user?: username): User
   getGist(id: string): Gist
+  getIssues(user: username, repo: reponame): Issue
 }
 
 declare module 'github-api' {
@@ -50,18 +62,57 @@ declare interface HttpRequest<Data = any> {
   statusText: Response['statusText']
 }
 
+declare type PromiseHttpRequest<Data = any> = Promise<HttpRequest<Data>>
+
 declare type UserProfile = {
-  avatar_url: string
   bio: string
   blog: string
   created_at: string
   email: string
   followers: number
   following: number
+  name: nickname
+  upated_at: string
+} & UserData
+
+declare type IssueData = {
+  id: number
+  author_association: 'OWNER' | string
+  title: string
+  body: string
+  comments: number
+  labels: IssueLabel[]
+  locked: boolean
+  number: number
+  state: 'open' | 'closed' | 'all'
+  updated_at: string
+  user: UserData
+}
+
+declare type IssueFilter = {
+  accept?: 'application/vnd.github.v3+json' | string
+  filter?: 'assigned' | 'created' | 'mentioned' | 'subscribed' | 'all'
+  state?: IssueData['state']
+  labels?: string
+  sort?: 'created' | 'updated' | 'comments'
+  direction?: 'desc' | 'asc'
+  since?: ISO_8601_Date
+  collab?: boolean
+  orgs?: boolean
+  owned?: boolean
+  pulls?: boolean
+  per_page?: number // Default: 30
+  page?: number // Default: 1
+}
+
+declare type UserData = {
+  avatar_url: string
   id: number
   login: username
-  name: nickname
   type: 'User'
-  upated_at: string
   url: string
 }
+
+declare type IssueLabel = {}
+
+declare type ISO_8601_Date = string

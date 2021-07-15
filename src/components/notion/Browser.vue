@@ -7,6 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useToggle } from '../../hooks/notion'
+import useStore from '../../hooks/store'
 
 const name = 'Browser'
 
@@ -14,6 +15,8 @@ export default defineComponent({
   name,
   setup() {
     const [on] = useToggle('browser')
+    const { dispatch } = useStore()
+    dispatch('getList')()
 
     return { name, on }
   },

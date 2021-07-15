@@ -26,20 +26,26 @@ export const state = reactive({
   [THEME]: theme,
   [NOTION]: notion,
 
+  provider: 'github',
+
   sources: [] as Source[],
   source: {
     provider: 'github',
     type: 'issues',
     url: 'https://github.com/vinceweel/Gnotion',
+    username: 'vinceweel',
+    reponame: 'Gnotion',
   } as Source,
 })
+
+const getGithub = ({ token, username }: Source) => {
+  return new Github({ token, username })
+}
 
 export const actionContext = reactive({
   ...useConsole('action'),
   state,
-  get github() {
-    return new Github(state.source)
-  },
+  github: getGithub(state.source),
 })
 
 // export const github = computed(() => new Github(state.source))
@@ -49,22 +55,24 @@ import * as githubActions from './github/actions'
 
 export const actions = { ...commonActions, ...githubActions }
 
-const genDispatch = (name: Provider) => (action: ActionName) => {
-  const actionsProviders: Record<Provider, Record<string, any>> = {
-    github: githubActions,
+const genDispatch =
+  (name: Provider = state.provider) =>
+  (action: ActionName) => {
+    const actionsProviders: Record<Provider, Record<string, any>> = {
+      github: githubActions,
+    }
+
+    return (...params: any[]) => {
+      const actions = actionsProviders[name]
+      const actionReducer = actions[action]
+
+      if (actionReducer) return actionReducer(actionContext, ...params)
+
+      useConsole('store').error(
+        `cannot dispatch the action named "${action}", maybe it is not exist?`,
+      )
+    }
   }
-
-  return (...params: any[]) => {
-    const actions = actionsProviders[name]
-    const actionReducer = actions[action]
-
-    if (actionReducer) return actionReducer(actionContext, ...params)
-
-    useConsole('store').error(
-      `cannot dispatch the action named "${action}", maybe it is not exist?`,
-    )
-  }
-}
 
 const hasAction = (action: ActionName) => Object.keys(actions).includes(action)
 
@@ -89,7 +97,7 @@ const genCommit =
 const hasMutation = (mutation: MutationName) =>
   Object.keys(mutations).includes(mutation)
 
-const useStore = (name: Provider = 'github') => {
+const useStore = (name: Provider = state.provider) => {
   return {
     state,
 

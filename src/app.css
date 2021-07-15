@@ -81,6 +81,22 @@ textarea._unset_ {
   outline: unset;
 }
 
+p._unset_,
+h1._unset_,
+h2._unset_,
+h3._unset_ {
+  margin: unset;
+  padding: unset;
+  font-size: unset;
+  font-weight: unset;
+}
+
+hr._line_ {
+  height: 1px;
+  background-color: var(--color-light-efefef);
+  border: unset;
+}
+
 ._blur_._blur_._blur_._blur_._blur_ {
   backdrop-filter: blur(var(--blur-size));
   background-color: transparent;
@@ -93,4 +109,11 @@ textarea._unset_ {
   width: 100%;
   position: absolute;
   content: '';
+}
+
+._card_ {
+  padding: var(--card-padding-normal);
+  box-shadow: var(--card-shadow-normal);
+  border-radius: var(--card-radius-normal);
+  background-color: var(--color-light-ffffff);
 }

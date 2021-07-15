@@ -1,16 +1,19 @@
+import moment from 'moment'
 import { Action } from '..'
 
-export const init: Action<void> = async ({ state }, { sources }: Gnotion) => {
+export const init: Action<void> = async (
+  { state },
+  { sources, settings }: Gnotion,
+) => {
+  state['settings'] = settings
   state['sources'] = sources
 }
 
-export const getIssuesAsList: Action<any> = async ({ log, state, github }) => {
+export const getIssues: Action<Issue> = async ({ state, github }) => {
   const {
     source: { username, reponame },
   } = state
-  const issues = await github.getIssues(username!, reponame!)
-  log(issues)
-  return issues.listIssues({ state: 'all' })
+  return await github.getIssues(username!, reponame!)
 }
 
 export const readArticle: Action<any> = async (ctx, params: {}) => {
@@ -23,17 +26,30 @@ export const readArticle: Action<any> = async (ctx, params: {}) => {
 
 export const readComments = () => ({ a: 'a' })
 
-export const getList: Action<List> = async (ctx, ...params) => {
+export const getArticleList: Action<List> = async (ctx, ...params) => {
   const { state } = ctx
+  const issueList = async () => {
+    const list = await (await (await getIssues(ctx)).listIssues({})).data
+    return list.map(({ id, title: _title, updated_at: updated }) => {
+      const [title, description] = _title.split(
+        state.settings.title_description_separator!,
+      )
+      return {
+        id,
+        title,
+        description,
+        updated: moment(updated).fromNow(),
+      }
+    })
+  }
   const list = await {
-    issues: () => getIssuesAsList(ctx, ...params),
+    issues: issueList,
     repo: () => [],
     wiki: () => [],
     gist: () => [],
   }[state.source.type]()
-  ctx.log(list)
 
-  return []
+  return list
 }
 
 type List = ListItem[]
@@ -41,10 +57,11 @@ type ListItem = {
   id: number
   title: string
   description?: string
-  tags?: Tag[]
+  labels?: Label[]
+  updated?: string
 }
 
-type Tag = {
+type Label = {
   id: number
   name: string
 }

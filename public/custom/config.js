@@ -1,3 +1,7 @@
+const settings = {
+  title_description_separator: '|',
+}
+
 const sources = [
   {
     provider: 'github',
@@ -7,7 +11,7 @@ const sources = [
   },
 ]
 
-window.globalThis.gnotion = { sources }
+window.globalThis.gnotion = { settings, sources }
 
 Object.keys(window.globalThis.gnotion).forEach((k) =>
   Object.defineProperty(window.globalThis.gnotion, k, {

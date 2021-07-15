@@ -13,7 +13,7 @@ export const NOTION = Symbol('notion')
 const _notion = {
   fab: true,
   drawer: false,
-  browser: false,
+  browser: !false,
   mask: false,
   editor: false,
 }
@@ -28,6 +28,7 @@ export const state = reactive({
 
   provider: 'github',
 
+  settings: {} as Settings,
   sources: [] as Source[],
   source: {
     provider: 'github',

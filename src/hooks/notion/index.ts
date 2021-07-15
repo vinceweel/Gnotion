@@ -1,5 +1,5 @@
 import { computed, ComputedRef } from 'vue'
-import useStore, { NOTION, NotionComponentNames } from './store'
+import useStore, { NOTION, NotionComponentNames } from '../store'
 
 export const useToggle = (
   name: NotionComponentNames,

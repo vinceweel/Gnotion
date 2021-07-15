@@ -1,7 +1,12 @@
 declare var gnotion: Gnotion
 
 type Gnotion = {
+  settings: Settings
   sources: Source[]
+}
+
+type Settings = {
+  title_description_separator?: string | RegExp
 }
 
 type Source = {

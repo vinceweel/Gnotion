@@ -6,12 +6,26 @@ if (location.search.includes('debug')) {
 }
 
 import 'normalize.css'
-import { createApp } from 'vue'
+import { createApp, Ref } from 'vue'
 
 import App from './App.vue'
-import i18n from './i18n'
+const app = createApp(App)
 
-createApp(App).use(i18n).mount('#app')
+import i18n from './i18n'
+app.use(i18n)
+
+import moment from 'moment'
+import 'moment/dist/locale/zh-cn'
+moment.locale(
+  (i18n.global.locale as unknown as Ref<typeof i18n.global.locale>).value,
+)
+
+import Api from './components/core/Api.vue'
+app.component('Api', Api)
+import Icon from './components/core/Icon.vue'
+app.component('Icon', Icon)
 
 import useStore from './hooks/store'
-useStore().dispatch('init')(gnotion)
+useStore().dispatch('init')(globalThis.gnotion)
+
+app.mount('#app')

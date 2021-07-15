@@ -1,22 +1,27 @@
 <template>
   <div :class="['_zero_', name, on && 'on']">
-    <div class="wrap">Browser</div>
+    <div class="wrap">
+      <Api action="getArticleList" v-slot="{ result: list }">
+        <template v-for="item of list" :key="item.id">
+          <BrowserListItem :data="item" />
+        </template>
+      </Api>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useToggle } from '../../hooks/notion'
-import useStore from '../../hooks/store'
+import BrowserListItem from './BrowserListItem.vue'
 
 const name = 'Browser'
 
 export default defineComponent({
   name,
+  components: { BrowserListItem },
   setup() {
     const [on] = useToggle('browser')
-    const { dispatch } = useStore()
-    dispatch('getList')()
 
     return { name, on }
   },
@@ -55,5 +60,7 @@ export default defineComponent({
   width: var(--browser-width);
   padding: var(--padding-normal);
   padding-top: var(--fab-offset-y);
+
+  overflow-x: hidden;
 }
 </style>

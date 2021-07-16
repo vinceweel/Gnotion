@@ -10,8 +10,8 @@ import Discussion from './components/Discussion.vue'
 <template lang="pug">
 FloatActionBar
 Drawer
-Browser
-Reader
+Browser(v-if="!true")
+Reader(v-if="!false")
 </template>
 
 <style src="./app.css">

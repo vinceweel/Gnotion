@@ -14,8 +14,11 @@
 
   font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
 
-  height: 100vh;
-  width: 100vw;
+  height: var(--base-app-height);
+  width: var(--base-app-width);
+
+  color: hsla(var(--text-color__normal), 100%);
+  font-size: 100%;
 
   overflow: hidden;
 }

@@ -7,5 +7,14 @@ section(:class="name")
   .wrap {{ name }}
 </template>
 
-<style scope>
+<style scoped>
+.Reader {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.wrap {
+  height: 200vh;
+}
 </style>

@@ -7,5 +7,5 @@ section(:class="name")
   .wrap {{name}}
 </template>
 
-<style scope>
+<style scoped>
 </style>

@@ -1,3 +1,21 @@
+/* color */
 :root {
-  --background-color__normal: #ffffff;
+  --color__primary: 103, 86%, 56%;
+  --color__accent: 17, 86%, 56%;
+
+  --background-color__normal: 0, 0%, 100%;
+
+  --text-color__normal: 0, 0%, 20%;
+}
+
+/* base */
+:root {
+  --base-size: 8px;
+  --base-app-height: 100vh;
+  --base-app-width: 100vw;
+}
+
+/* padding */
+:root {
+  --padding__normal: calc(var(--base-size) * 2);
 }

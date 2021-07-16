@@ -1,0 +1,21 @@
+@import url('./variables.css');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#app {
+  user-select: none;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
+
+  height: 100vh;
+  width: 100vw;
+
+  overflow: hidden;
+}

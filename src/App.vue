@@ -1,27 +1,19 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-})
+<script lang="ts" setup>
+import FloatActionBar from './components/FloatActionBar.vue'
+import Drawer from './components/Drawer.vue'
+import Browser from './components/Browser.vue'
+import Reader from './components/Reader.vue'
+import Editor from './components/Editor.vue'
+import Discussion from './components/Discussion.vue'
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<template lang="pug">
+FloatActionBar
+Drawer
+Browser
+Reader
+</template>
+
+<style src="./app.css">
+/* reference css file */
 </style>

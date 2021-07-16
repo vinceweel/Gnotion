@@ -1,10 +1,13 @@
 <template>
-  <div :class="['_zero_', name, on && 'on']">
+  <!-- <div :class="['_zero_', name, on && 'on']"> -->
+  <div :class="[name]">
     <div class="wrap">
       <Api action="getArticleList" v-slot="{ result: list }">
-        <template v-for="item of list" :key="item.id">
-          <BrowserListItem :data="item" />
-        </template>
+        <div class="list">
+          <template v-for="item of list" :key="item.id">
+            <BrowserListItem :data="item" />
+          </template>
+        </div>
       </Api>
     </div>
   </div>
@@ -31,7 +34,7 @@ export default defineComponent({
 <style>
 :root {
   --browser-height: 100vh;
-  --browser-width: 100vw;
+  --browser-width: 100%;
 
   --browser-offset-x: 0;
 }
@@ -40,6 +43,7 @@ export default defineComponent({
 <style scoped>
 .Browser {
   z-index: 5;
+  position: relative;
 }
 
 .Browser.on {
@@ -47,20 +51,26 @@ export default defineComponent({
 }
 
 .wrap {
-  transform: translateX(var(--browser-offset-x));
+  /* transform: translateX(var(--browser-offset-x));
 
   left: calc(var(--browser-width) * -1);
   top: 0;
   position: absolute;
 
-  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out; */
 
   background-color: var(--color-light-ffffff);
   height: var(--browser-height);
   width: var(--browser-width);
-  padding: var(--padding-normal);
   padding-top: var(--fab-offset-y);
 
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
+}
+
+.list {
+  padding: var(--padding-normal);
+  padding-top: 0;
+  /* min-height: 100vh; */
 }
 </style>

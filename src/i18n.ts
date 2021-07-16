@@ -10,6 +10,7 @@ const en = {
   repo_link: 'Github Repo',
   editor_placeholder: 'Want to Say Something ? ...',
   more_menu: 'More Actions',
+  no_description: 'Not Found Description...',
 }
 
 const zh = {
@@ -19,10 +20,11 @@ const zh = {
   guest: '看客',
   slogn: '通过 Github 登陆 >>',
   settings: '设置',
-    
+
   repo_link: 'Github 仓库',
   editor_placeholder: '不想说点啥么？……',
   more_menu: '更多操作',
+  no_description: '没有内容描述...',
 }
 
 const i18nOptions: I18nOptions = {

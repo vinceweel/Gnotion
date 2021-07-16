@@ -1,11 +1,13 @@
 <template>
   <FloatActionBar />
   <Drawer />
-  <Browser />
+  <template v-if="browserOn">
+    <Browser />
+  </template>
   <template v-if="editorOn">
     <Editor />
   </template>
-  <template v-else>
+  <template v-if="!browserOn && !editorOn">
     <Reader />
     <DiscussEditor />
     <Discuss />
@@ -22,9 +24,10 @@ export default defineComponent({
   name: 'ActivityNotion',
   components,
   setup() {
+    const [browserOn] = useToggle('browser')
     const [editorOn] = useToggle('editor')
 
-    return { editorOn }
+    return { browserOn, editorOn }
   },
 })
 </script>

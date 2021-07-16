@@ -1,8 +1,10 @@
 <template>
-  <article :class="[name]" :data-id="data.id">
+  <article @click="onClick" :class="[name]" :data-id="data.id">
     <header>
       <h3 class="_unset_ title">{{ data.title }}</h3>
-      <p class="_unset_ description">{{ data.description }}</p>
+      <p class="_unset_ description">
+        {{ data.description ?? t('no_description') }}
+      </p>
     </header>
     <footer>
       <div class="metas">
@@ -15,13 +17,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const name = 'ListItem'
 export default defineComponent({
   name,
   props: ['data'],
-  setup() {
-    return { name }
+  setup({ data }: { data: IssueData }) {
+    const { t } = useI18n()
+    const onClick = () => {
+      console.log(data.id)
+    }
+    return { name, t, onClick }
   },
 })
 </script>
@@ -41,7 +48,7 @@ export default defineComponent({
 .description {
   font-size: 14px;
   line-height: 1.25;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .metas {

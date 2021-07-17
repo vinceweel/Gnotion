@@ -17,7 +17,7 @@
   height: var(--base-app-height);
   width: var(--base-app-width);
 
-  color: hsla(var(--text-color__normal), 100%);
+  color: hsla(var(--text-color--normal), 100%);
   font-size: 100%;
 
   overflow: hidden;

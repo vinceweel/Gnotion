@@ -1,31 +1,42 @@
 <script lang="ts" setup>
-import { ref } from "@vue/reactivity";
-import { computed } from "@vue/runtime-core";
-import { drawerWidth, drawerHeight, chanegFab, fabOffsetY, toggleFab } from "../variables";
-chanegFab(200)
+import { ref } from "vue";
+import { drawerHeight, drawerWidth, drawerOffsetX, drawerOpacity, toggleDrawer, fabOffsetY } from "../variables";
+
 const name = 'Drawer'
+
+toggleDrawer(true)
 </script>
 
 <template lang="pug">
 nav(:class="name")
-  .wrap(@click="() =>toggleFab()")
+  .wrap
     | {{ name }}
 </template>
 
 <style scoped>
 .Drawer {
-  height: calc(v-bind(drawerHeight) - v-bind(fabOffsetY));
+  height: calc(v-bind(drawerHeight) - v-bind(fabOffsetY) - 16px);
   width: v-bind(drawerWidth);
 
-  background-color: red;
-  /* left: calc(v-bind(drawerWidth) * -1); */
-  /* bottom: 0; */
-  top: 0;
+  left: calc(v-bind(drawerWidth) * -1);
+  top: v-bind(fabOffsetY);
   position: absolute;
 }
 
 .wrap {
+  opacity: v-bind(drawerOpacity);
+  transform: translateX(v-bind(drawerOffsetX));
+  transition: opacity 0.25s var(--transition--normal),
+    transform 0.25s var(--transition--normal);
+
+  box-shadow: var(--shadow-colored--medium);
+  border-radius: var(--radius--normal);
+  background-color: hsl(var(--background-color--normal));
+
   height: 100%;
   width: 100%;
+  padding: var(--padding--normal);
+
+  overflow-y: hidden;
 }
 </style>

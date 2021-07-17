@@ -26,5 +26,6 @@ export const stopWatchMask = watch(maskVisibility, (visibility: number) => {
   toggleDrawer(!status)
 })
 
+// Initial Components
 toggleDrawer(true)
 toggleMask(true)

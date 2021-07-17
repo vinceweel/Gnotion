@@ -19,12 +19,14 @@
     "@editorjs/editorjs": "^2.22.1",
     "moment": "^2.29.1",
     "normalize.css": "^8.0.1",
+    "pascalcase": "^1.0.0",
     "reduce-css-calc": "^2.1.8",
     "vue": "^3.0.5",
     "vue-i18n": "^9.1.6"
   },
   "devDependencies": {
     "@types/node": "^16.3.2",
+    "@types/pascalcase": "^1.0.0",
     "@vitejs/plugin-vue": "^1.2.5",
     "@vue/compiler-sfc": "^3.0.5",
     "pug": "^3.0.2",

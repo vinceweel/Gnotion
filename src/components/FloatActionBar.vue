@@ -7,3 +7,9 @@ nav(:class="[name]")
   .wrap
     | {{ name }}
 </template>
+
+<style scoped>
+.FloatActionBar {
+  position: absolute;
+}
+</style>

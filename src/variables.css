@@ -44,3 +44,8 @@
 :root {
   --transition--normal: cubic-bezier(0.77, 0, 0.175, 1);
 }
+
+/* filter */
+:root {
+  --blur--normal: blur(calc(var(--base-size) / 4));
+}

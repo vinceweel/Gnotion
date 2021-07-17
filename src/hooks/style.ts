@@ -38,7 +38,7 @@ export const useOpacity = (num: number = 1) => {
   let unOpacity = unref(opacity)
 
   const change = (_num: typeof num) => {
-    opacity.value = num
+    opacity.value = _num
     unOpacity = unref(opacity)
   }
 

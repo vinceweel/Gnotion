@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-const name = 'FloatActionBar'
 import { toggleDrawer } from "../variables";
+
+const name = 'FloatActionBar'
 </script>
 
 <template lang="pug">
@@ -12,5 +13,10 @@ nav(:class="[name]")
 <style scoped>
 .FloatActionBar {
   position: absolute;
+  z-index: 7;
+}
+
+.wrap {
+  background-color: var(--background-color--normal);
 }
 </style>

@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { drawerHeight, drawerWidth, drawerOffsetX, drawerOpacity, toggleDrawer, fabOffsetY } from "../variables";
+import { drawerHeight, drawerWidth, drawerOffsetX, drawerOpacity, fabOffsetY } from "../variables";
 
 const name = 'Drawer'
-
-toggleDrawer(true)
 </script>
 
 <template lang="pug">
@@ -21,6 +19,7 @@ nav(:class="name")
   left: calc(v-bind(drawerWidth) * -1);
   top: v-bind(fabOffsetY);
   position: absolute;
+  z-index: 10;
 }
 
 .wrap {

@@ -4,8 +4,6 @@ import type { Component } from 'vue'
 import pascalcase from 'pascalcase'
 import * as Icons from './icons'
 
-const name = 'Icon'
-
 const props = defineProps({
   name: {
     type: String,
@@ -35,7 +33,7 @@ const Path = computed(() => (Icons as Record<string, Component>)[pascalcase(icon
 <template lang="pug">
 svg(
   xmlns="http://www.w3.org/2000/svg"
-  :class="[name, props.name]"
+  :class="['icon', props.name]"
   :viewBox="`0 0 ${vbs} ${vbs}`"
   :width="width ?? size"
   :height="height ?? size"

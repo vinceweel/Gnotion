@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ButtonIcon from './BaseButtonIcon.vue'
+import Button from './BaseButton.vue'
 import Icon from './BaseIcon.vue'
 
 import { toggleDrawer } from "../variables";
@@ -10,8 +10,8 @@ const name = 'FloatActionBar'
 <template lang="pug">
 nav(:class="[name]")
   .wrap
-    //- ButtonIcon
-    Icon(name="account" color="blue")
+    Button(size="32" @click="() => toggleDrawer()")
+      Icon(name="account")
 </template>
 
 <style scoped>

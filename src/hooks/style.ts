@@ -1,36 +1,43 @@
-import { ref, unref } from 'vue'
-import type { Ref } from 'vue'
 import reduceCssCalc from 'reduce-css-calc'
+import { computed, isRef, ref, unref } from 'vue'
+import type { Ref } from 'vue'
 
-export const useSize = (num: Size | UnitSize = 0, unit: Unit = 'px') => {
-  const getSize = (_num: typeof num, _unit: typeof unit = unit) =>
-    new RegExp(_unit).test(`${_num}`) ? `${_num}` : `${_num}${_unit}`
-
-  const size: Ref<UnitSize> = ref(getSize(num, unit))
+export const useUnitSize = (
+  num: Ref<Size> | Size = 0,
+  unit: Unit | null = 'px',
+) => {
+  const size = isRef(num) ? num : ref(num)
 
   let unSize = unref(size)
 
-  const change = (_num: typeof num = 0, _unit: typeof unit = unit) => {
-    size.value = getSize(_num, _unit)
+  const change = (_num: Size = 0) => {
+    size.value = _num
     unSize = unref(size)
   }
   const calc = (expression: string, precision?: number) => {
     size.value = reduceCssCalc(
-      `calc(${expression.replaceAll('$', size.value)})`,
+      `calc(${expression.replaceAll('$', `${size.value}`)})`,
       precision,
     )
     unSize = unref(size)
   }
   const toggle = (close?: boolean) => {
-    size.value = getSize(close ?? size.value === unSize ? 0 : unSize)
+    size.value = close ?? size.value === unSize ? 0 : unSize
   }
 
-  return <const>[size, { calc, change, toggle }]
+  return <const>[
+    computed(() =>
+      unit === null || new RegExp(`${unit}$`).test(`${size.value}`)
+        ? size.value
+        : `${size.value}${unit}`,
+    ),
+    { calc, change, toggle },
+  ]
 }
 
 type Unit = 'px' | '%' | 'vh' | 'vw' | 'em' | 'rem' | ''
-type Size = number
 type UnitSize = string
+type Size = number | UnitSize
 
 export const useOpacity = (num: number = 1) => {
   const opacity = ref(num)

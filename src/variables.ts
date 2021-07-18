@@ -1,10 +1,16 @@
 import { watch } from 'vue'
-import { useOpacity, useSize } from './hooks/style'
+import { useOpacity, useUnitSize } from './hooks/style'
+
+// base
+export const PADDING_SIZE_NORMAL = 16
 
 // Drawer
-export const [drawerHeight, { calc: drawerCalcHeight }] = useSize(100, '%')
-export const [drawerWidth] = useSize(240)
-export const [drawerOffsetX, { toggle: toggleDrawerOffset }] = useSize(256)
+export const DRAWER_WIDTH = 240
+export const [drawerHeight, { calc: drawerCalcHeight }] = useUnitSize(100, '%')
+export const [drawerWidth] = useUnitSize(DRAWER_WIDTH)
+export const [drawerOffsetX, { toggle: toggleDrawerOffset }] = useUnitSize(
+  DRAWER_WIDTH + PADDING_SIZE_NORMAL,
+)
 export const [drawerOpacity, { toggle: toggleDrawerOpacity }] = useOpacity(1)
 
 export const toggleDrawer = (close?: boolean) => {
@@ -14,8 +20,8 @@ export const toggleDrawer = (close?: boolean) => {
 }
 
 // Float Action Bar
-export const [fabHeight] = useSize(56)
-export const [fabOffsetY, { toggle: toggleFab }] = useSize(fabHeight.value)
+export const [fabHeight] = useUnitSize(56)
+export const [fabOffsetY, { toggle: toggleFab }] = useUnitSize(fabHeight.value)
 
 // Mask
 export const [maskVisibility, { toggle: toggleMask }] = useOpacity()
@@ -27,5 +33,7 @@ export const stopWatchMask = watch(maskVisibility, (visibility: number) => {
 })
 
 // Initial Components
-toggleDrawer(true)
-toggleMask(true)
+;(() => {
+  toggleDrawer(true)
+  toggleMask(true)
+})()

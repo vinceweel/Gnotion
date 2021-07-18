@@ -22,3 +22,48 @@
 
   overflow: hidden;
 }
+
+a.__unset {
+  color: var(--color--primary);
+  text-decoration: unset;
+}
+
+a.__unset:active {
+  filter: brightness(0.8);
+}
+
+button.__unset {
+  border: unset;
+  padding: unset;
+  line-height: unset;
+  background: unset;
+}
+
+button.__unset.action:active {
+  filter: brightness(0.8);
+}
+
+input.__unset,
+textarea.__unset {
+  border: unset;
+  padding: unset;
+  margin: unset;
+  background: unset;
+  outline: unset;
+}
+
+p.__unset,
+h1.__unset,
+h2.__unset,
+h3.__unset {
+  margin: unset;
+  padding: unset;
+  font-size: unset;
+  font-weight: unset;
+}
+
+hr.--line {
+  background-color: var(--color-gray--deep2);
+  height: 1px;
+  border: unset;
+}

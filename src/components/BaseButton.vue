@@ -1,37 +1,32 @@
 <script lang="ts" setup>
-import { ref, toRefs, watch } from 'vue'
-import type { Ref } from 'vue'
-import { useUnitSize } from '../hooks/style'
-import { leftRef } from '../functions'
-
-const props = defineProps({
-  size: {
-    type: [String, Number],
-    default: 48,
-  },
-  height: {
-    type: [String, Number],
-  },
-  width: {
-    type: [String, Number],
-  },
-})
-const refs = toRefs(props)
-
-const [size] = useUnitSize(props.size)
-const [height] = useUnitSize(leftRef(refs.height, refs.size))
-const [width] = useUnitSize(leftRef(refs.width, refs.size))
 </script>
 
 <template lang="pug">
-button(class="button __unset")
-  slot
+button.__unset.component
+  .wrap.__center-h_v
+    slot
 </template>
 
 <style scoped>
-.button {
-  background-color: red;
-  height: v-bind(height);
-  width: v-bind(width);
+.component {
+  --height: 32px;
+  --width: 48px;
+  --radius: 24px;
+  --padding: 0;
+  --border: 1px solid hsl(var(--color-border--normal));
+  --background-color: hsl(var(--color-background--normal));
+
+  padding: var(--padding);
+  position: relative;
+}
+
+.wrap {
+  border-radius: var(--radius);
+  border: var(--border);
+
+  background-color: var(--background-color);
+
+  height: var(--height);
+  width: var(--width);
 }
 </style>

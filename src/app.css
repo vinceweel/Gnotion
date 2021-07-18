@@ -17,7 +17,7 @@
   height: var(--base-app-height);
   width: var(--base-app-width);
 
-  color: hsla(var(--text-color--normal), 100%);
+  color: hsla(var(--color-text--normal), 100%);
   font-size: 100%;
 
   overflow: hidden;
@@ -62,8 +62,19 @@ h3.__unset {
   font-weight: unset;
 }
 
+*.__center-h_v {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+*.__fill-h_w {
+  height: 100%;
+  width: 100%;
+}
+
 hr.--line {
-  background-color: var(--color-gray--deep2);
+  background-color: hsl(var(--line-color--normal));
   height: 1px;
   border: unset;
 }

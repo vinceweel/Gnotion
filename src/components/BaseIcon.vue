@@ -41,6 +41,3 @@ svg(
   g(:fill="color")
     path(v-is="Path")
 </template>
-
-<style scoped>
-</style>

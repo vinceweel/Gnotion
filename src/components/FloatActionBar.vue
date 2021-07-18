@@ -1,26 +1,33 @@
 <script lang="ts" setup>
+import { useUnitSize } from '../hooks/style';
+import { toggleDrawer } from "../variables";
+
 import Button from './BaseButton.vue'
 import Icon from './BaseIcon.vue'
 
-import { toggleDrawer } from "../variables";
-
-const name = 'FloatActionBar'
+const [sizeIconBtn] = useUnitSize(32)
 </script>
 
 <template lang="pug">
-nav(:class="[name]")
+nav(class="component")
   .wrap
-    Button(size="32" @click="() => toggleDrawer()")
-      Icon(name="account")
+    Button.action(@click="() => toggleDrawer()")
+      Icon(name="account" :size="sizeIconBtn")
 </template>
 
 <style scoped>
-.FloatActionBar {
+.component {
   position: absolute;
   z-index: 7;
 }
 
 .wrap {
-  background-color: var(--background-color--normal);
+  background-color: var(--color-background--normal);
+}
+
+.action {
+  --height: v-bind(sizeIconBtn);
+  --width: v-bind(sizeIconBtn);
+  --radius: calc(v-bind(sizeIconBtn) / 2);
 }
 </style>

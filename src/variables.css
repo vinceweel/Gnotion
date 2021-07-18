@@ -3,13 +3,15 @@
   --color--primary: 103, 86%, 56%;
   --color--accent: 17, 86%, 56%;
 
-  --color--deep2: 0, 100%, 20%;
+  --color-background--normal: 0, 0%, 100%;
 
-  --background-color--normal: 0, 0%, 100%;
+  --color-text--normal: 0, 0%, 20%;
 
-  --text-color--normal: 0, 0%, 20%;
+  --color-border--normal: 0, 0%, 60%;
 
-  --shadow-color--normal: 106, 26%, 60%;
+  --color-shadow--normal: 106, 26%, 60%;
+
+  --line-color--normal: 0, 0%, 70%;
 }
 
 /* base */
@@ -34,13 +36,13 @@
   --shadow--high: 0 3px 6px 3px;
 
   --shadow-colored--low: var(--shadow--low)
-    hsla(var(--shadow-color--normal), 30%);
+    hsla(var(--color-shadow--normal), 30%);
 
   --shadow-colored--medium: var(--shadow-colored--low),
-    var(--shadow--medium) hsla(var(--shadow-color--normal), 20%);
+    var(--shadow--medium) hsla(var(--color-shadow--normal), 20%);
 
   --shadow-colored--high: var(--shadow-colored--medium),
-    var(--shadow--high) hsla(var(--shadow-color--normal), 10%);
+    var(--shadow--high) hsla(var(--color-shadow--normal), 10%);
 }
 
 :root {

@@ -30,7 +30,7 @@ nav(:class="name")
 
   box-shadow: var(--shadow-colored--medium);
   border-radius: var(--radius--normal);
-  background-color: hsl(var(--background-color--normal));
+  background-color: hsl(var(--color-background--normal));
 
   height: 100%;
   width: 100%;

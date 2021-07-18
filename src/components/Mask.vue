@@ -2,22 +2,18 @@
 import { computed } from "vue";
 import { maskVisibility, toggleMask } from "../variables";
 
-const name = 'Mask'
-
 const visibility = computed(() => ['hidden', 'visible'][maskVisibility.value])
 </script>
 
 <template lang="pug">
-div(:class="[name]" @click="() => toggleMask(true)")
+.component
+  .wrap(@click="() => toggleMask(true)")
 </template>
 
 <style scoped>
-.Mask {
+.component {
   opacity: v-bind(maskVisibility);
   visibility: v-bind(visibility);
-
-  backdrop-filter: var(--blur--normal);
-  background-color: hsla(var(--background-color--normal), 50%);
 
   left: 0;
   bottom: 0;
@@ -25,5 +21,13 @@ div(:class="[name]" @click="() => toggleMask(true)")
   top: 0;
   position: absolute;
   z-index: 8;
+}
+
+.wrap {
+  backdrop-filter: var(--blur--normal);
+  background-color: hsla(var(--color-background--normal), 50%);
+
+  height: 100%;
+  width: 100%;
 }
 </style>

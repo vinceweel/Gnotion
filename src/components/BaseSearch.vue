@@ -23,11 +23,12 @@ const { t } = useI18n()
 .wrap {
   box-shadow: var(--shadow);
   border-radius: var(--radius);
+  background-color: hsl(var(--color-background--normal));
 
   height: var(--height);
   width: 100%;
 
-  padding: 0 1em;
+  padding: 0 16px;
 
   display: flex;
 }

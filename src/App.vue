@@ -18,7 +18,7 @@ import Mask from './components/Mask.vue'
 FloatActionBar
 Drawer
 Browser(v-if="!true")
-Reader(v-if="!true")
+Reader(v-if="true")
 Mask
 </template>
 

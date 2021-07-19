@@ -12,16 +12,17 @@ export const [fabHeight] = useUnitSize(56)
 export const [fabWidth] = useUnitSize(100, '%')
 export const [fabOffsetY, { toggle: toggleFAB }] = useUnitSize(fabHeight.value)
 
-export const fabShown = computed(() => fabOffsetY.value === '0px')
+export const fabIsHide = computed(() => fabOffsetY.value === '0px')
 </script>
 
 <script lang="ts" setup>
-import { toggleDrawer } from './Drawer.vue'
+import { toggleDrawer, drawerIsHide } from './Drawer.vue'
 
 const [actionSize] = useUnitSize(40)
 
 const height = fabHeight
 const width = fabWidth
+const offsetY = fabOffsetY
 </script>
 
 <template lang="pug">
@@ -33,8 +34,8 @@ const width = fabWidth
       Icon(name="all_inbox" :size="24")
     Search.search
       template(v-slot:left)
-        Button.menu(@click="() => toggleDrawer()")
-          Icon(name="menu" :size="24")
+        Button.action.drawer(@click="() => toggleDrawer()")
+          Icon(:name="drawerIsHide ? 'menu' : 'arrow_back'" :size="24")
     Button.action
       Icon(name="sync" :size="24")
     Button.action
@@ -46,14 +47,19 @@ const width = fabWidth
   height: v-bind(height);
   width: v-bind(width);
 
-  top: 0;
+  top: calc(v-bind(height) * -1);
   left: 0;
   position: absolute;
-  z-index: 7;
+  z-index: 9;
 }
 
 .wrap {
+  transform: translateY(v-bind(offsetY));
+  transition: opacity 0.25s var(--transition--normal),
+    transform 0.25s var(--transition--normal);
+
   height: inherit;
+  width: inherit;
 }
 
 .action {
@@ -75,8 +81,13 @@ const width = fabWidth
   --height: v-bind(actionSize);
 }
 
-.menu {
+.drawer {
   --shadow: none;
-  margin-left: -0.25em;
+  --height: v-bind(actionSize);
+  --width: v-bind(actionSize);
+  --padding: unset;
+
+  padding: unset;
+  margin-left: -12px;
 }
 </style>

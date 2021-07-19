@@ -1,3 +1,9 @@
+<script lang="ts">
+export default {
+  name: 'Icon'
+}
+</script>
+
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, toRefs } from 'vue'
 import type { Component } from 'vue'

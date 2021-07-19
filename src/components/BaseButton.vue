@@ -1,4 +1,7 @@
-<script lang="ts" setup>
+<script lang="ts">
+export default {
+  name: 'Button'
+}
 </script>
 
 <template lang="pug">
@@ -9,15 +12,14 @@ button.__unset.component
 
 <style scoped>
 .component {
-  --height: 32px;
-  --width: 48px;
   --radius: 24px;
-  --padding: 0;
   --border: 1px solid hsl(var(--color-border--normal));
   --background-color: hsl(var(--color-background--normal));
 
-  padding: var(--padding);
-  position: relative;
+  --height: auto;
+  --width: auto;
+
+  --padding: calc(var(--base-size) / 2) var(--base-size);
 }
 
 .wrap {
@@ -28,5 +30,6 @@ button.__unset.component
 
   height: var(--height);
   width: var(--width);
+  padding: var(--padding);
 }
 </style>

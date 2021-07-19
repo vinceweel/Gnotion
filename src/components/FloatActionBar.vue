@@ -26,8 +26,13 @@ nav(class="component")
 }
 
 .action {
+  --radius: calc(v-bind(sizeIconBtn) / 2);
   --height: v-bind(sizeIconBtn);
   --width: v-bind(sizeIconBtn);
-  --radius: calc(v-bind(sizeIconBtn) / 2);
+  --padding: unset;
+}
+
+.action > :deep(.wrap) {
+  transform: translateY(0%);
 }
 </style>

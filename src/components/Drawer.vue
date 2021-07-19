@@ -1,18 +1,20 @@
+<script lang="ts">
+
+</script>
+
 <script lang="ts" setup>
 import { ref } from "vue";
 import { drawerHeight, drawerWidth, drawerOffsetX, drawerOpacity, fabOffsetY } from "../variables";
-
-const name = 'Drawer'
 </script>
 
 <template lang="pug">
-nav(:class="name")
+.component
   .wrap
-    | {{ name }}
+    | {{ drawerOffsetX }}
 </template>
 
 <style scoped>
-.Drawer {
+.component {
   height: calc(v-bind(drawerHeight) - v-bind(fabOffsetY) - 16px);
   width: v-bind(drawerWidth);
 

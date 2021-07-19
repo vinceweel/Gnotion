@@ -1,28 +1,46 @@
-<script lang="ts">
+<script lang="ts">import { toRefs } from "@vue/reactivity";
+import { useUnitSize } from "../hooks/style";
+
 export default {
   name: 'Button'
 }
 </script>
 
+<script lang="ts" setup>
+const props = withDefaults(defineProps<{
+  height?: string | number
+  width?: string | number
+}>(), {
+  height: 'auto',
+  width: 'auto'
+})
+const refs = toRefs(props)
+
+const [height] = useUnitSize(refs.height)
+const [width] = useUnitSize(refs.width)
+</script>
+
 <template lang="pug">
-button.__unset.component
-  .wrap.__center-h_v
+button.__unset.Button
+  .wrap.__center.-axis.-cross
     slot
 </template>
 
 <style scoped>
-.component {
+.Button {
+  --shadow: var(--shadow-colored--low);
   --radius: 24px;
-  --border: 1px solid hsl(var(--color-border--normal));
+  --border: unset;
   --background-color: hsl(var(--color-background--normal));
 
-  --height: auto;
-  --width: auto;
+  --height: v-bind(height);
+  --width: v-bind(width);
 
   --padding: calc(var(--base-size) / 2) var(--base-size);
 }
 
 .wrap {
+  box-shadow: var(--shadow);
   border-radius: var(--radius);
   border: var(--border);
 
@@ -30,6 +48,7 @@ button.__unset.component
 
   height: var(--height);
   width: var(--width);
+
   padding: var(--padding);
 }
 </style>

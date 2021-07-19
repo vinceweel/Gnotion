@@ -49,7 +49,7 @@ export const useUnitSize = (
 
 type Unit = 'px' | '%' | 'vh' | 'vw' | 'em' | 'rem' | ''
 type UnitSize = string
-type Size = number | UnitSize
+type Size = number | UnitSize | undefined
 
 export const useOpacity = (num: number = 1) => {
   const opacity = ref(num)

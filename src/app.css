@@ -68,8 +68,18 @@ h3.__unset {
   font-weight: unset;
 }
 
-*.__center-h_v {
+*.__center.-axis.-cross {
   align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+*.__center.-axis {
+  align-items: center;
+  display: flex;
+}
+
+*.__center.-cross {
   justify-content: center;
   display: flex;
 }

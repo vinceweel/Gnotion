@@ -22,12 +22,12 @@ onBeforeMount(() => {
 </script>
 
 <template lang="pug">
-.component
+.Mask
   .wrap(@click="() => toggle(true)")
 </template>
 
 <style scoped>
-.component {
+.Mask {
   opacity: v-bind(maskVisibility);
   visibility: v-bind(visibility);
 

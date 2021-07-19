@@ -5,7 +5,7 @@ import { useOpacity, useUnitSize } from "../hooks/style";
 import { baseSizePadding } from "../variables";
 
 import { toggleMask } from "./Mask.vue";
-import { fabOffsetY } from "./FloatActionBar.vue";
+import { fabOffsetY, fabShown } from "./FloatActionBar.vue";
 
 const BASE_WIDTH = 240
 
@@ -26,7 +26,7 @@ const width = drawerWidth
 const height = drawerHeight
 const opacity = drawerOpacity
 const offsetX = drawerOffsetX
-const offsetY = calc(() => `${fabOffsetY.value} + ${baseSizePadding.value}`)
+const offsetY = calc(() => `${fabOffsetY.value} + ${fabShown.value ? baseSizePadding.value : '0px'}`)
 
 onBeforeMount(() => {
   toggleDrawer(true)
@@ -34,12 +34,12 @@ onBeforeMount(() => {
 </script>
 
 <template lang="pug">
-.component
+.Drawer
   .wrap
 </template>
 
 <style scoped>
-.component {
+.Drawer {
   height: v-bind(height);
   width: v-bind(width);
 

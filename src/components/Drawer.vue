@@ -1,32 +1,62 @@
 <script lang="ts">
+import { computed, onBeforeMount, ref } from "vue";
 
+import { useOpacity, useUnitSize } from "../hooks/style";
+import { baseSizePadding } from "../variables";
+
+import { toggleMask } from "./Mask.vue";
+import { fabOffsetY } from "./FloatActionBar.vue";
+
+const BASE_WIDTH = 240
+
+export const [drawerWidth] = useUnitSize(BASE_WIDTH)
+export const [drawerHeight, { calc }] = useUnitSize(100, '%')
+export const [drawerOffsetX, { toggle: toggleOffsetX }] = useUnitSize(BASE_WIDTH + 16)
+export const [drawerOpacity, { toggle: toggleOpacity }] = useOpacity(1)
+
+export const toggleDrawer = (close?: boolean) => {
+  toggleOffsetX(close)
+  toggleOpacity(close)
+  toggleMask(close)
+}
 </script>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { drawerHeight, drawerWidth, drawerOffsetX, drawerOpacity, fabOffsetY } from "../variables";
+const width = drawerWidth
+const height = drawerHeight
+const opacity = drawerOpacity
+const offsetX = drawerOffsetX
+const offsetY = calc(() => `${fabOffsetY.value} + ${baseSizePadding.value}`)
+
+onBeforeMount(() => {
+  toggleDrawer(true)
+})
 </script>
 
 <template lang="pug">
 .component
   .wrap
-    | {{ drawerOffsetX }}
 </template>
 
 <style scoped>
 .component {
-  height: calc(v-bind(drawerHeight) - v-bind(fabOffsetY) - 16px);
-  width: v-bind(drawerWidth);
+  height: v-bind(height);
+  width: v-bind(width);
 
-  left: calc(v-bind(drawerWidth) * -1);
-  top: v-bind(fabOffsetY);
+  padding-top: v-bind(offsetY);
+  padding-bottom: v-bind(baseSizePadding);
+  flex-direction: column;
+  display: flex;
+
+  left: calc(v-bind(width) * -1);
+  top: 0;
   position: absolute;
   z-index: 10;
 }
 
 .wrap {
   opacity: v-bind(drawerOpacity);
-  transform: translateX(v-bind(drawerOffsetX));
+  transform: translateX(v-bind(offsetX));
   transition: opacity 0.25s var(--transition--normal),
     transform 0.25s var(--transition--normal);
 

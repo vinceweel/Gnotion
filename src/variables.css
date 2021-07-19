@@ -17,8 +17,8 @@
 /* base */
 :root {
   --base-size: 8px;
-  --base-app-height: 100vh;
-  --base-app-width: 100vw;
+  --base-app-height: 100%;
+  --base-app-width: 100%;
 }
 
 /* padding */

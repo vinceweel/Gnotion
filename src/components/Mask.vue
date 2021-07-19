@@ -1,13 +1,29 @@
-<script lang="ts" setup>
-import { computed } from "vue";
-import { maskVisibility, toggleMask } from "../variables";
+<script lang="ts">
+import { computed, onBeforeMount } from "vue";
 
+import { useOpacity } from "../hooks/style";
+
+import { toggleDrawer } from "./Drawer.vue";
+
+export const [maskVisibility, { toggle: toggleMask }] = useOpacity()
+</script>
+
+<script lang="ts" setup>
 const visibility = computed(() => ['hidden', 'visible'][maskVisibility.value])
+
+const toggle = (close?: boolean) => {
+  toggleMask(close)
+  toggleDrawer(close)
+}
+
+onBeforeMount(() => {
+  toggleMask(true)
+})
 </script>
 
 <template lang="pug">
 .component
-  .wrap(@click="() => toggleMask(true)")
+  .wrap(@click="() => toggle(true)")
 </template>
 
 <style scoped>

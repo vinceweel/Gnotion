@@ -1,3 +1,9 @@
+<script lang="ts">
+export default {
+  name: 'GNotion'
+}
+</script>
+
 <script lang="ts" setup>
 import FloatActionBar from './components/FloatActionBar.vue'
 import Drawer from './components/Drawer.vue'

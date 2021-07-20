@@ -52,6 +52,24 @@ const offsetY = fabOffsetY
   position: absolute;
   z-index: 9;
 }
+.wrap::before {
+  background-image: linear-gradient(
+    to bottom,
+    hsl(var(--color-background--normal)),
+    transparent
+  );
+
+  height: 50px;
+  width: 100%;
+
+  left: 0;
+  top: 0;
+  /* bottom: -50px; */
+  position: absolute;
+
+  display: block;
+  content: "";
+}
 
 .wrap {
   transform: translateY(v-bind(offsetY));

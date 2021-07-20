@@ -2,23 +2,17 @@
 import { onMounted, ref, watch } from 'vue'
 
 import useScrolling from '../hooks/scrolling'
-import { baseSizePadding } from '../variables'
 
 import { fabHeight, toggleFAB } from './FloatActionBar.vue'
 
 const readerEl = ref(null)
-const [{ offset, position, axis }, { mountListener, scrollY }] = useScrolling(readerEl, { throttle: { wait: 400 } })
 
-onMounted(() => {
-  mountListener()
-})
+const [{ direction }, { mountListener }] = useScrolling(readerEl, { throttle: { wait: 400 } })
+onMounted(mountListener)
+watch(direction, ({ y }) => toggleFAB(y === 'down'))
 </script>
 
 <template lang="pug">
-div(style="position: fixed; z-index: 10; top: 30vh; height: 2em; background-color: white;")
-  | {{ offset }}
-  | {{ position }}
-  | {{ axis }}
 article.Reader(ref="readerEl")
   .wrap
     p(v-for="n of 25" :key="n")
@@ -29,11 +23,9 @@ article.Reader(ref="readerEl")
 
 <style scoped>
 .Reader {
-  /* height: 100%;
-  width: 100%; */
   width: calc(100% + 10px);
 
-  padding: v-bind(baseSizePadding);
+  padding: var(--base-size-padding);
   padding-top: v-bind(fabHeight);
 
   overflow-x: auto;

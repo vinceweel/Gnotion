@@ -8,20 +8,19 @@ const { error } = useConsole('hook: scrolling')
 
 /* debounce & throttle waiting time */ const WAIT_TIME = 200
 
-export const useScrolling = (target: ScrollTarget, options: Params) => {
+const defaultOptions = {
+  position: {
+    centerRatio: 1,
+  },
+  throttle: { wait: WAIT_TIME },
+  debounce: { wait: WAIT_TIME, immediate: true },
+}
+
+export const useScrolling = (target: ScrollTarget, options: Options) => {
   const {
     position: { centerRatio },
     ...opt
-  } = <Options>merge<Params>(
-    {
-      position: {
-        centerRatio: 1,
-      },
-      throttle: { wait: WAIT_TIME },
-      debounce: { wait: WAIT_TIME, immediate: true },
-    },
-    options,
-  )
+  } = merge(defaultOptions, options) as typeof defaultOptions
 
   const refTarget = computed(() => (isRef(target) ? unref(target) : target))
   const targetMeta = reactive({
@@ -45,8 +44,8 @@ export const useScrolling = (target: ScrollTarget, options: Params) => {
     const { scrollHeight, height, scrollWidth, width } = targetMeta
 
     const getPosition = (
-      ss: number, // scroll size
-      vs: number, // viewport size
+      /* scroll size */ ss: number,
+      /* viewport size */ vs: number,
       axis: 'x' | 'y',
     ) => {
       const range = (vs / 10 / (vs / ss)) * centerRatio
@@ -65,18 +64,6 @@ export const useScrolling = (target: ScrollTarget, options: Params) => {
   })
 
   /* custom listener list */ const listeners: Ref<ListenerOption[]> = ref([])
-
-  const addListener = (listener: listener) => {
-    const symbol = Symbol(listener.toString())
-    listeners.value.push([listener, { symbol }])
-    return symbol
-  }
-
-  const removeListener = (listenerSymbol: Symbol) => {
-    listeners.value = listeners.value.filter(
-      ([, { symbol }]) => symbol !== listenerSymbol,
-    )
-  }
 
   const listener: listener = (ev) => {
     const { scrollTop: y = 0, scrollLeft: x = 0 } = ev.target as Element
@@ -131,14 +118,38 @@ export const useScrolling = (target: ScrollTarget, options: Params) => {
 
   if (refTarget.value !== null) mountListener()
 
+  const addListener = (listener: listener) => {
+    const symbol = Symbol(listener.toString())
+    listeners.value.push([listener, { symbol }])
+    return symbol
+  }
+  const removeListener = (listenerSymbol: Symbol) => {
+    listeners.value = listeners.value.filter(
+      ([, { symbol }]) => symbol !== listenerSymbol,
+    )
+  }
+
   const scroll = (options: ScrollToOptions, target = refTarget.value) =>
     target!.scrollTo(merge({ top: 0, left: 0, behavior: 'smooth' }, options))
   const scrollY = (top: number) => scroll({ top })
   const scrollX = (left: number) => scroll({ left })
 
+  const isDirection = (_direction: ScrollDirection[keyof ScrollDirection]) => {
+    if (axis.value === null) return false
+    return direction.value[axis.value] === _direction
+  }
+
   return <const>[
     { axis, offset, direction, distance, position },
-    { mountListener, addListener, removeListener, scroll, scrollY, scrollX },
+    {
+      mountListener,
+      addListener,
+      removeListener,
+      scroll,
+      scrollY,
+      scrollX,
+      isDirection,
+    },
   ]
 }
 
@@ -153,7 +164,7 @@ type position = 'center' | 'end' | 'nearest' | 'start'
 type ScrollPosition = { x: position; y: position }
 type ScrollAxis = 'x' | 'y' | null
 
-type Params = {
+type Options = {
   position?: {
     centerRatio?: number | 1 | 0 | 0.5
   }
@@ -167,15 +178,3 @@ type Params = {
 }
 
 type ScrollTarget = Element | null | Ref<Element | null>
-type Options = {
-  position: {
-    centerRatio: number | 1 | 0 | 0.5
-  }
-  debounce: {
-    wait: number
-    immediate: boolean
-  }
-  throttle: {
-    wait: number
-  }
-}

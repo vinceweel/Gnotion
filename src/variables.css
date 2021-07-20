@@ -17,6 +17,8 @@
 /* base */
 :root {
   --base-size: 8px;
+  --base-size-padding: calc(var(--base-size) * 2);
+
   --base-app-height: 100%;
   --base-app-width: 100%;
 }

@@ -89,11 +89,6 @@ export const useScrolling = (target: ScrollTarget, options: Params) => {
     })
     Object.assign(offset, { x, y })
 
-    // console.log(
-    //   target.clientHeight / (target.clientHeight / target.scrollHeight),
-    // )
-    console.log(axis.value, offset, position.value)
-
     const _listeners = computed(() =>
       listeners.value.filter(([listener]) => typeof listener === 'function'),
     )
@@ -116,28 +111,34 @@ export const useScrolling = (target: ScrollTarget, options: Params) => {
     return listener
   }
 
-  const mountListener = (target: Element | null = refTarget.value) => {
+  const mountListener = (target = refTarget.value) => {
     if (target === null)
       return error(
         `can not mount 'scroll' event listener for the target: "${target}"`,
       )
 
     const { scrollHeight, scrollWidth, clientHeight, clientWidth } = target
+
     Object.assign(targetMeta, {
       scrollHeight,
       scrollWidth,
       height: clientHeight,
       width: clientWidth,
     })
+
     target.addEventListener('scroll', listenerFn(), false)
   }
 
-  // try to mount on start
   if (refTarget.value !== null) mountListener()
+
+  const scroll = (options: ScrollToOptions, target = refTarget.value) =>
+    target!.scrollTo(merge({ top: 0, left: 0, behavior: 'smooth' }, options))
+  const scrollY = (top: number) => scroll({ top })
+  const scrollX = (left: number) => scroll({ left })
 
   return <const>[
     { axis, offset, direction, distance, position },
-    { mountListener, addListener, removeListener },
+    { mountListener, addListener, removeListener, scroll, scrollY, scrollX },
   ]
 }
 

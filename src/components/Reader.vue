@@ -7,7 +7,7 @@ import { baseSizePadding } from '../variables'
 import { fabHeight, toggleFAB } from './FloatActionBar.vue'
 
 const readerEl = ref(null)
-const [{ offset, position, axis }, { mountListener }] = useScrolling(readerEl, { throttle: { wait: 400 } })
+const [{ offset, position, axis }, { mountListener, scrollY }] = useScrolling(readerEl, { throttle: { wait: 400 } })
 
 onMounted(() => {
   mountListener()

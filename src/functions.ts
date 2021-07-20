@@ -12,7 +12,7 @@ export const leftRef = (leftRefValue?: Ref<any>, rightRefValue?: Ref<any>) => {
 export const debounce = (
   func: (...args: any[]) => any,
   wait: number,
-  immediate: boolean = false,
+  immediate: boolean = true,
 ) => {
   let timeout: NodeJS.Timeout
 
@@ -26,20 +26,14 @@ export const debounce = (
 
 export const throttle = (func: (...args: any[]) => any, wait: number) => {
   let timeout: NodeJS.Timeout | void
-  let previous: number = Date.now()
 
   return (...args: any[]) => {
-    const remaining = wait - (Date.now() - previous)
-
     if (timeout !== undefined) return
 
     timeout = setTimeout(() => {
-      previous = Date.now()
-
-      timeout = clearTimeout(timeout!)
-
       func(...args)
-    }, remaining)
+      timeout = clearTimeout(timeout!)
+    }, wait)
   }
 }
 

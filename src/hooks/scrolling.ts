@@ -6,21 +6,19 @@ import { debounce, merge, throttle } from '../functions'
 import useConsole from './console'
 const { error } = useConsole('hook: scrolling')
 
-/* debounce & throttle waiting time */ const WAIT_TIME = 200
-
-const defaultOptions = {
-  position: {
-    centerRatio: 1,
-  },
-  throttle: { wait: WAIT_TIME },
-  debounce: { wait: WAIT_TIME, immediate: true },
+const defaultOptions: Options = {
+  centerRatio: 1,
+  optimization: 'throttle',
+  throttle: { wait: 300 },
+  debounce: { wait: 200, immediate: true },
 }
 
 export const useScrolling = (target: ScrollTarget, options: Options) => {
   const {
-    position: { centerRatio },
+    centerRatio,
+    optimization,
     ...opt
-  } = merge(defaultOptions, options) as typeof defaultOptions
+  } = merge(defaultOptions, options)
 
   const refTarget = computed(() => (isRef(target) ? unref(target) : target))
   const targetMeta = reactive({
@@ -48,7 +46,7 @@ export const useScrolling = (target: ScrollTarget, options: Options) => {
       /* viewport size */ vs: number,
       axis: 'x' | 'y',
     ) => {
-      const range = (vs / 10 / (vs / ss)) * centerRatio
+      const range = (vs / 10 / (vs / ss)) * centerRatio!
 
       if (Math.abs(ss - vs - offset[axis] * 2) < range) return 'center'
       if (ss - vs - offset[axis] <= 0) return 'end'
@@ -85,14 +83,14 @@ export const useScrolling = (target: ScrollTarget, options: Options) => {
   }
 
   const listenerFn: () => listener = () => {
-    if (opt.debounce) {
-      const { wait, immediate } = opt.debounce
-      return debounce(listener, wait, immediate)
+    if (optimization === 'debounce') {
+      const { wait, immediate } = opt.debounce!
+      return debounce(listener, wait!, immediate)
     }
 
-    if (opt.throttle) {
-      const { wait } = opt.throttle
-      return throttle(listener, wait)
+    if (optimization === 'throttle') {
+      const { wait } = opt.throttle!
+      return throttle(listener, wait!)
     }
 
     return listener
@@ -165,9 +163,8 @@ type ScrollPosition = { x: position; y: position }
 type ScrollAxis = 'x' | 'y' | null
 
 type Options = {
-  position?: {
-    centerRatio?: number | 1 | 0 | 0.5
-  }
+  centerRatio?: number | 1 | 0 | 0.5
+  optimization?: 'throttle' | 'debounce'
   debounce?: {
     wait?: number
     immediate?: boolean

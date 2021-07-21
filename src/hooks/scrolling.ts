@@ -7,16 +7,21 @@ import useConsole from './console'
 const { error } = useConsole('hook: scrolling')
 
 const defaultOptions: Options = {
+  target: null,
   centerRatio: 1,
   optimization: 'throttle',
   throttle: { wait: 300 },
   debounce: { wait: 200, immediate: true },
 }
 
-export const useScrolling = (target: ScrollTarget, options: Options) => {
-  const { centerRatio, optimization, ...opt } = merge(defaultOptions, options)
+export const useScrolling = (options: Options) => {
+  const { target, centerRatio, optimization, ...opt } = merge(
+    defaultOptions,
+    options,
+  )
 
-  const refTarget = computed(() => (isRef(target) ? unref(target) : target))
+  // const targetRef = computed(() => (isRef(target) ? unref(target) : target))
+  const targetRef = isRef(target) ? target : ref(target)
   const targetMeta = reactive({
     scrollHeight: 0,
     scrollWidth: 0,
@@ -92,13 +97,13 @@ export const useScrolling = (target: ScrollTarget, options: Options) => {
     return listener
   }
 
-  const mountListener = (target = refTarget.value) => {
+  const mountListener = (target = targetRef.value) => {
     if (target === null)
       return error(
         `can not mount 'scroll' event listener for the target: "${target}"`,
       )
 
-    const { scrollHeight, scrollWidth, clientHeight, clientWidth } = target
+    const { scrollHeight, scrollWidth, clientHeight, clientWidth } = target!
 
     Object.assign(targetMeta, {
       scrollHeight,
@@ -107,10 +112,10 @@ export const useScrolling = (target: ScrollTarget, options: Options) => {
       width: clientWidth,
     })
 
-    target.addEventListener('scroll', listenerFn(), false)
+    target!.addEventListener('scroll', listenerFn(), false)
   }
 
-  if (refTarget.value !== null) mountListener()
+  if (targetRef.value !== null) mountListener()
 
   const addListener = (listener: listener) => {
     const symbol = Symbol(listener.toString())
@@ -123,7 +128,7 @@ export const useScrolling = (target: ScrollTarget, options: Options) => {
     )
   }
 
-  const scroll = (options: ScrollToOptions, target = refTarget.value) =>
+  const scroll = (options: ScrollToOptions, target = targetRef.value) =>
     target!.scrollTo(merge({ top: 0, left: 0, behavior: 'smooth' }, options))
   const scrollY = (top: number, smooth: boolean = true) =>
     scroll({ top, behavior: smooth ? 'smooth' : 'auto' })
@@ -136,7 +141,7 @@ export const useScrolling = (target: ScrollTarget, options: Options) => {
   }
 
   return <const>[
-    { axis, offset, direction, distance, position },
+    { targetRef, axis, offset, direction, distance, position },
     {
       mountListener,
       addListener,
@@ -161,6 +166,7 @@ type ScrollPosition = { x: position; y: position }
 type ScrollAxis = 'x' | 'y' | null
 
 type Options = {
+  target?: ScrollTarget
   centerRatio?: number | 1 | 0 | 0.5
   optimization?: 'throttle' | 'debounce'
   debounce?: {

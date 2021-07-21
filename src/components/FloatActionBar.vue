@@ -67,7 +67,6 @@ const offsetY = fabOffsetY
 
   left: 0;
   top: 0;
-  /* bottom: -50px; */
   position: absolute;
 
   display: block;

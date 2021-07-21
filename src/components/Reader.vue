@@ -3,7 +3,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue'
 
 import useScrolling from '../hooks/scrolling'
 
-import Gap from './BaseGap.vue'
+import Space from './BaseSpace.vue'
 import { fabHeight, toggleFAB } from './FloatActionBar.vue'
 
 const [
@@ -18,7 +18,7 @@ onUnmounted(watch(direction, ({ y: direction }) => toggleFAB(direction === 'down
 <template lang="pug">
 article.Reader(ref="targetRef")
   .wrap
-    Gap(:height="fabHeight")
+    Space(:height="fabHeight")
     p(v-for="n of 25" :key="n")
       | Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et eum reiciendis aperiam consectetur veniam dignissimos voluptate quibusdam atque ipsam quasi, ullam earum eligendi similique, neque soluta amet incidunt excepturi iure.
   slot(name="bottom")

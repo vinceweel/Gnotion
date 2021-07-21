@@ -40,6 +40,8 @@ const { t } = useI18n()
   height: v-bind(size);
   width: v-bind(size);
 
+  flex-shrink: 0;
+  
   overflow: hidden;
 }
 

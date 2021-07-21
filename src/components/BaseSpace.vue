@@ -1,7 +1,5 @@
 <script lang="ts">
-export default {
-  name: 'Gap'
-}
+export default { name: 'Space' }
 </script>
 
 <script lang="ts" setup>
@@ -19,11 +17,11 @@ const [width] = useUnitSize(refs.width)
 </script>
 
 <template lang="pug">
-.Gap(:style="{ height, width }")
+.Space(:style="{ height, width }")
 </template>
 
 <style scoped>
-.Gap {
+.Space {
   height: 100%;
   width: 100%;
 }

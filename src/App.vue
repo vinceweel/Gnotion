@@ -11,7 +11,7 @@ import Browser from './components/Browser.vue'
 import Reader from './components/Reader.vue'
 import Editor from './components/Editor.vue'
 import Discussion from './components/Discussion.vue'
-import DiscussionEditor from './components/DiscussionEditor.vue'
+import DiscussionEditorBar from './components/DiscussionEditorBar.vue'
 import Mask from './components/Mask.vue'
 </script>
 
@@ -21,7 +21,7 @@ Drawer
 Browser(v-if="!true")
 Reader(v-if="true")
   template(v-slot:bottom)
-    DiscussionEditor
+    DiscussionEditorBar
     Discussion
 Mask
 </template>

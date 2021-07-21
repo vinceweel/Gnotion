@@ -21,26 +21,25 @@ article.Reader(ref="targetRef")
     Gap(:height="fabHeight")
     p(v-for="n of 25" :key="n")
       | Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et eum reiciendis aperiam consectetur veniam dignissimos voluptate quibusdam atque ipsam quasi, ullam earum eligendi similique, neque soluta amet incidunt excepturi iure.
-    slot(name="bottom")
+  slot(name="bottom")
 </template>
 
 <style scoped>
 .Reader {
-  width: calc(100% + 10px);
+  height: 100%;
   width: 100%;
-
-  padding: var(--base-size-padding);
-  /* padding-top: v-bind(fabHeight); */
+  /* width: calc(100% + 10px); */
 
   overflow-x: hidden;
   overflow-y: auto;
 
-  top: -16px;
-  bottom: -16px;
+  /* top: -16px;
+  bottom: -16px; */
   position: absolute;
+  z-index: 2;
 }
 
 .wrap {
-  width: 100%;
+  padding: 0 var(--base-size-padding);
 }
 </style>

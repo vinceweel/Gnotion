@@ -34,9 +34,8 @@ const { t } = useI18n()
 }
 
 .input {
-  height: 100%;
   width: 100%;
 
-  font-size: 87.5%;
+  font-size: var(--font-size--medium);
 }
 </style>

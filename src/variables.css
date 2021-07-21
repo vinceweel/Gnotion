@@ -55,3 +55,14 @@
 :root {
   --blur--normal: blur(calc(var(--base-size) / 4));
 }
+
+/* font */
+:root {
+  --font-size--huge: 150%;
+  --font-size--very: 125%;
+  --font-size--large: 112.5%;
+  --font-size--normal: 100%;
+  --font-size--medium: 87.5%;
+  --font-size--small: 75%;
+  --font-size--tiny: 62.5%;
+}

@@ -1,6 +1,7 @@
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
+import Avatar from './BaseAvatar.vue'
 import Button from './BaseButton.vue'
 import Icon from './BaseIcon.vue'
 import Search from './BaseSearch.vue'
@@ -18,7 +19,9 @@ export const fabIsHide = computed(() => fabOffsetY.value === '0px')
 <script lang="ts" setup>
 import { toggleDrawer, drawerIsHide } from './Drawer.vue'
 
-const [actionSize] = useUnitSize(40)
+const size = ref(40)
+const [actionSize] = useUnitSize(size)
+const [iconSize] = useUnitSize(24)
 
 const height = fabHeight
 const width = fabWidth
@@ -29,17 +32,17 @@ const offsetY = fabOffsetY
 .FloatActionBar
   .wrap.__center.-axis
     Button.action.avatar
-      Icon(name="account" :size="actionSize")
+      Avatar(:size="size")
     Button.action
-      Icon(name="all_inbox" :size="24")
+      Icon(name="all_inbox" :size="iconSize")
     Search.search
       template(v-slot:left)
         Button.action.drawer(@click="() => toggleDrawer()")
-          Icon(:name="drawerIsHide ? 'menu' : 'arrow_back'" :size="24")
+          Icon(:name="drawerIsHide ? 'menu' : 'arrow_back'" :size="iconSize")
     Button.action
-      Icon(name="sync" :size="24")
+      Icon(name="sync" :size="iconSize")
     Button.action
-      Icon(name="more_vert" :size="24")
+      Icon(name="more_vert" :size="iconSize")
 </template>
 
 <style scoped>

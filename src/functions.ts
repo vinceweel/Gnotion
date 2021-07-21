@@ -1,13 +1,14 @@
 import { Ref } from 'vue'
 
-export const leftRef = (leftRefValue?: Ref<any>, rightRefValue?: Ref<any>) => {
-  if (!leftRefValue) return rightRefValue
+export const notRef =
+  (leftRefValue?: Ref<any>) => (rightRefValue?: Ref<any>) => {
+    if (!leftRefValue) return rightRefValue
 
-  if (leftRefValue.value === null || leftRefValue.value === undefined)
-    return rightRefValue
+    if (leftRefValue.value === null || leftRefValue.value === undefined)
+      return rightRefValue
 
-  return leftRefValue
-}
+    return leftRefValue
+  }
 
 export const debounce = (
   func: (...args: any[]) => any,

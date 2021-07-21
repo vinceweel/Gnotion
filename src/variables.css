@@ -28,6 +28,7 @@
 /* padding */
 :root {
   --padding--normal: calc(var(--base-size) * 2);
+  --padding--small: calc(var(--base-size) * 1);
 }
 
 :root {
@@ -35,9 +36,13 @@
 }
 
 :root {
+  --shadow--border: 0 0px 0px 1px;
   --shadow--low: 0 1px 2px 1px;
   --shadow--medium: 0 2px 4px 2px;
   --shadow--high: 0 3px 6px 3px;
+
+  --shadow-colored--border: var(--shadow--border)
+    hsla(var(--color-shadow--normal), 30%);
 
   --shadow-colored--low: var(--shadow--low)
     hsla(var(--color-shadow--normal), 30%);

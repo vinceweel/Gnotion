@@ -11,6 +11,7 @@ import Browser from './components/Browser.vue'
 import Reader from './components/Reader.vue'
 import Editor from './components/Editor.vue'
 import Discussion from './components/Discussion.vue'
+import DiscussionEditor from './components/DiscussionEditor.vue'
 import DiscussionEditorBar from './components/DiscussionEditorBar.vue'
 import Mask from './components/Mask.vue'
 </script>
@@ -19,9 +20,11 @@ import Mask from './components/Mask.vue'
 FloatActionBar
 Drawer
 Browser(v-if="!true")
+Editor(v-if="!true")
 Reader(v-if="true")
   template(v-slot:bottom)
     DiscussionEditorBar
+    DiscussionEditor
     Discussion
 Mask
 </template>

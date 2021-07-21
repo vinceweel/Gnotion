@@ -1,10 +1,22 @@
-<script lang="ts" setup>
+<script lang="ts">
+import { baseSize } from '../variables'
+import { useUnitSize } from '../hooks/style'
+
 import { fabOffsetY, fabHeight } from './FloatActionBar.vue'
 
+export const [editorBarHeight, { calc }] = useUnitSize(48)
+export const editorBarTop = calc(() => `${fabOffsetY.value} + ${baseSize.value}`)
+</script>
+
+<script lang="ts" setup>
 import Button from './BaseButton.vue'
 import Icon from './BaseIcon.vue'
 import Avatar from './BaseAvatar.vue'
 import Space from './BaseSpace.vue'
+import { computed } from '@vue/runtime-core'
+
+const height = editorBarHeight
+const top = editorBarTop
 </script>
 
 <template lang="pug">
@@ -21,7 +33,7 @@ import Space from './BaseSpace.vue'
 <style scoped>
 .DiscussionEditorBar {
   --offsetY: 0px;
-  --height: 48px;
+  --height: v-bind(height);
   --width: 100%;
   --blur: 5px;
 
@@ -33,10 +45,10 @@ import Space from './BaseSpace.vue'
 
   padding: 0 var(--padding--normal);
 
-  top: calc(v-bind(fabOffsetY) + var(--base-size));
+  top: v-bind(top);
   bottom: var(--base-size);
   position: sticky;
-  z-index: 30;
+  z-index: 4;
 }
 
 .wrap {
@@ -53,6 +65,7 @@ import Space from './BaseSpace.vue'
 
 .action {
   flex-shrink: 0;
+  margin-right: calc(var(--base-size) / 2);
 }
 
 .name,

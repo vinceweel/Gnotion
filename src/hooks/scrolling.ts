@@ -14,11 +14,7 @@ const defaultOptions: Options = {
 }
 
 export const useScrolling = (target: ScrollTarget, options: Options) => {
-  const {
-    centerRatio,
-    optimization,
-    ...opt
-  } = merge(defaultOptions, options)
+  const { centerRatio, optimization, ...opt } = merge(defaultOptions, options)
 
   const refTarget = computed(() => (isRef(target) ? unref(target) : target))
   const targetMeta = reactive({
@@ -129,8 +125,10 @@ export const useScrolling = (target: ScrollTarget, options: Options) => {
 
   const scroll = (options: ScrollToOptions, target = refTarget.value) =>
     target!.scrollTo(merge({ top: 0, left: 0, behavior: 'smooth' }, options))
-  const scrollY = (top: number) => scroll({ top })
-  const scrollX = (left: number) => scroll({ left })
+  const scrollY = (top: number, smooth: boolean = true) =>
+    scroll({ top, behavior: smooth ? 'smooth' : 'auto' })
+  const scrollX = (left: number, smooth: boolean = true) =>
+    scroll({ left, behavior: smooth ? 'smooth' : 'auto' })
 
   const isDirection = (_direction: ScrollDirection[keyof ScrollDirection]) => {
     if (axis.value === null) return false

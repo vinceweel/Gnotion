@@ -12,7 +12,7 @@ const i18nOptions: I18nOptions = {
     en,
     zh: { ...en, ...zh },
     'en-US': en,
-    'zh-CN': zh,
+    'zh-CN': { ...en, ...zh },
   },
 }
 

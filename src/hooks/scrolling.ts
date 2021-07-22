@@ -8,19 +8,17 @@ const { error } = useConsole('hook: scrolling')
 
 const defaultOptions: Options = {
   target: null,
-  centerRatio: 1,
   optimization: 'throttle',
   throttle: { wait: 300 },
   debounce: { wait: 200, immediate: true },
 }
 
-export const useScrolling = (options: Options) => {
-  const { target, centerRatio, optimization, ...opt } = merge(
+export const useScrolling = (options: Options = {}) => {
+  const { target, optimization, ...opt } = merge(
     defaultOptions,
     options,
   )
 
-  // const targetRef = computed(() => (isRef(target) ? unref(target) : target))
   const targetRef = isRef(target) ? target : ref(target)
   const targetMeta = reactive({
     scrollHeight: 0,
@@ -33,34 +31,6 @@ export const useScrolling = (options: Options) => {
   const offset: { x: number; y: number } = reactive({ x: 0, y: 0 })
 
   const axis: Ref<ScrollAxis> = ref(null)
-
-  const direction: ComputedRef<ScrollDirection> = computed(() => ({
-    x: distance.x < 0 ? 'left' : 'right',
-    y: distance.y < 0 ? 'up' : 'down',
-  }))
-
-  const position: ComputedRef<ScrollPosition> = computed(() => {
-    const { scrollHeight, height, scrollWidth, width } = targetMeta
-
-    const getPosition = (
-      /* scroll size */ ss: number,
-      /* viewport size */ vs: number,
-      axis: 'x' | 'y',
-    ) => {
-      const range = (vs / 10 / (vs / ss)) * centerRatio!
-
-      if (Math.abs(ss - vs - offset[axis] * 2) < range) return 'center'
-      if (ss - vs - offset[axis] <= 0) return 'end'
-      if (offset[axis] <= 0) return 'start'
-
-      return 'nearest'
-    }
-
-    return {
-      x: getPosition(scrollWidth, width, 'x'),
-      y: getPosition(scrollHeight, height, 'y'),
-    }
-  })
 
   /* custom listener list */ const listeners: Ref<ListenerOption[]> = ref([])
 
@@ -135,13 +105,8 @@ export const useScrolling = (options: Options) => {
   const scrollX = (left: number, smooth: boolean = true) =>
     scroll({ left, behavior: smooth ? 'smooth' : 'auto' })
 
-  const isDirection = (_direction: ScrollDirection[keyof ScrollDirection]) => {
-    if (axis.value === null) return false
-    return direction.value[axis.value] === _direction
-  }
-
   return <const>[
-    { targetRef, axis, offset, direction, distance, position },
+    { targetRef, targetMeta, axis, offset, distance },
     {
       mountListener,
       addListener,
@@ -149,12 +114,64 @@ export const useScrolling = (options: Options) => {
       scroll,
       scrollY,
       scrollX,
-      isDirection,
     },
   ]
 }
 
+export const useDirection = ({
+  distance,
+  axis,
+}: Pick<ScrollingReturnData, 'axis' | 'distance'>) => {
+  const direction: ComputedRef<ScrollDirection> = computed(() => ({
+    x: distance!.x < 0 ? 'left' : 'right',
+    y: distance!.y < 0 ? 'up' : 'down',
+  }))
+
+  const isDirection = (_direction: ScrollDirection[keyof ScrollDirection]) => {
+    if (axis.value === null) return false
+    return direction.value[axis!.value] === _direction
+  }
+
+  const isDown = () => isDirection('down')
+
+  return <const>[direction, { isDirection, isDown }]
+}
+
+export const usePosition = (
+  { offset, targetMeta }: Pick<ScrollingReturnData, 'offset' | 'targetMeta'>,
+  options: { centerRatio?: number; start?: number; end?: number } = {},
+) => {
+  const { centerRatio, start, end } = merge({ centerRatio: 1, start: 10, end: 10 }, options)
+
+  const position: ComputedRef<ScrollPosition> = computed(() => {
+    const { scrollHeight, height, scrollWidth, width } = targetMeta
+
+    const getPosition = (
+      /* scroll size */ ss: number,
+      /* viewport size */ vs: number,
+      axis: 'x' | 'y',
+    ) => {
+      const range = (vs / 10 / (vs / ss)) * centerRatio!
+
+      if (Math.abs(ss - vs - offset[axis] * 2) < range) return 'center'
+      if (ss - vs - offset[axis] <= end!) return 'end'
+      if (offset[axis] <= start!) return 'start'
+
+      return 'nearest'
+    }
+
+    return {
+      x: getPosition(scrollWidth, width, 'x'),
+      y: getPosition(scrollHeight, height, 'y'),
+    }
+  })
+
+  return [position]
+}
+
 export default useScrolling
+
+type ScrollingReturnData = ReturnType<typeof useScrolling>[0]
 
 type listener = (ev: Event) => void
 type ListenerOption = [listener, { symbol: Symbol }]
@@ -167,7 +184,6 @@ type ScrollAxis = 'x' | 'y' | null
 
 type Options = {
   target?: ScrollTarget
-  centerRatio?: number | 1 | 0 | 0.5
   optimization?: 'throttle' | 'debounce'
   debounce?: {
     wait?: number

@@ -1,4 +1,6 @@
 <script lang="ts">
+import { useI18n } from 'vue-i18n'
+
 import { baseSize } from '../variables'
 import { useUnitSize } from '../hooks/style'
 
@@ -13,10 +15,11 @@ import Button from './BaseButton.vue'
 import Icon from './BaseIcon.vue'
 import Avatar from './BaseAvatar.vue'
 import Space from './BaseSpace.vue'
-import { computed } from '@vue/runtime-core'
 
 const height = editorBarHeight
 const top = editorBarTop
+
+const { t } = useI18n()
 </script>
 
 <template lang="pug">
@@ -26,7 +29,7 @@ const top = editorBarTop
     span.name Guest
     Space
     Button.action
-      span.label Click to Login with Github >>
+      span.label {{ t('login_github_tip') }}
       Icon(name="github")
 </template>
 

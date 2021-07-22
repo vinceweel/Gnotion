@@ -2,11 +2,11 @@ export default {
   search: 'Search',
   avatar: 'Avatar',
   guest: 'Guest',
-  slogn: 'Login from Github >>',
   settings: 'Settings',
-
+  
   repo_link: 'Github Repo',
-  editor_placeholder: 'Want to Say Something ? ...',
+  login_github_tip: 'Login from Github >>',
+  discussion_editor_tip: 'Want to Say Something ? ...',
   more_menu: 'More Actions',
   no_description: 'Not Found Description...',
 }

@@ -1,18 +1,20 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 
-import useScrolling from '../hooks/scrolling'
+import useScrolling, { useDirection } from '../hooks/scrolling'
 
 import Space from './BaseSpace.vue'
 import { fabHeight, toggleFAB } from './FloatActionBar.vue'
 
 const [
-  { targetRef, direction },
+  { targetRef, ...scrolling },
   { mountListener },
 ] = useScrolling({ throttle: { wait: 800 } })
 
+const [direction, { isDown }] = useDirection(scrolling)
+
 onMounted(mountListener)
-onUnmounted(watch(direction, ({ y: direction }) => toggleFAB(direction === 'down')))
+onUnmounted(watch(direction, () => toggleFAB(isDown())))
 </script>
 
 <template lang="pug">

@@ -1,15 +1,18 @@
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
 import { useUnitSize } from '../hooks/style'
 
 import { editorBarTop, editorBarHeight } from './DiscussionEditorBar.vue'
 
 const [height] = useUnitSize(6, 'em')
+
+const { t } = useI18n()
 </script>
 
 <template lang="pug">
 .DiscussionEditor
   .wrap
-    textarea.textarea.__unset
+    textarea.textarea.__unset(:placeholder="t('discussion_editor_tip')")
 </template>
 
 <style scoped>

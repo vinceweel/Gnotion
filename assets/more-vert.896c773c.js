@@ -1,1 +1,0 @@
-import{o as c,c as r}from"./vendor.cd5836c0.js";const o={},s={d:"M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"};o.render=function(o,t){return c(),r("path",s)};export default o;

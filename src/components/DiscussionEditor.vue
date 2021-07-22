@@ -87,6 +87,8 @@ const { t } = useI18n()
 }
 
 .textarea {
+  resize: vertical;
+  
   height: var(--height);
   width: 100%;
 }

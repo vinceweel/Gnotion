@@ -33,7 +33,7 @@ export const throttle = (func: (...args: any[]) => any, wait: number) => {
 
     timeout = setTimeout(() => {
       func(...args)
-      timeout = clearTimeout(timeout!)
+      timeout = clearTimeout(timeout! as unknown as undefined)
     }, wait)
   }
 }

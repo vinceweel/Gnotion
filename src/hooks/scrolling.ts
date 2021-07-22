@@ -203,7 +203,7 @@ export const useIntersection = ({
       Object.assign(rectMeta, { x, y })
     }
 
-    watchEffect(() => updateRect()! || watch(offset, updateRect))
+    watchEffect(() => updateRect()! as undefined || watch(offset, updateRect))
   }
 
   const isInter = (axis: 'x' | 'y') => computed(() => !!interRect.value[axis])

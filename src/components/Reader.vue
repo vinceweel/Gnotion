@@ -1,24 +1,26 @@
+<script lang="ts">
+import useScrolling, { useDirection } from '../hooks/scrolling'
+
+export const [
+  { targetRef, ...scrolling },
+  { mountListener, addListener },
+] = useScrolling({ throttle: { wait: 400 } })
+const [direction, { isDown }] = useDirection(scrolling)
+</script>
+
 <script lang="ts" setup>
 import { onMounted, onUnmounted, watch } from 'vue'
-
-import useScrolling, { useDirection } from '../hooks/scrolling'
 
 import Space from './BaseSpace.vue'
 import { fabHeight, toggleFAB } from './FloatActionBar.vue'
 
-const [
-  { targetRef, ...scrolling },
-  { mountListener },
-] = useScrolling({ throttle: { wait: 800 } })
-
-const [direction, { isDown }] = useDirection(scrolling)
-
+const target = targetRef
 onMounted(mountListener)
 onUnmounted(watch(direction, () => toggleFAB(isDown())))
 </script>
 
 <template lang="pug">
-article.Reader(ref="targetRef")
+article.Reader(ref="target")
   .wrap
     Space(:height="fabHeight")
     p(v-for="n of 25" :key="n")

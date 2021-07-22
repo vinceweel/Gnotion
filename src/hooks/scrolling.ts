@@ -1,4 +1,13 @@
-import { computed, isRef, reactive, ref, unref } from 'vue'
+import {
+  computed,
+  isRef,
+  reactive,
+  ref,
+  toRefs,
+  unref,
+  watch,
+  watchEffect,
+} from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 
 import { debounce, merge, throttle } from '../functions'
@@ -14,10 +23,7 @@ const defaultOptions: Options = {
 }
 
 export const useScrolling = (options: Options = {}) => {
-  const { target, optimization, ...opt } = merge(
-    defaultOptions,
-    options,
-  )
+  const { target, optimization, ...opt } = merge(defaultOptions, options)
 
   const targetRef = isRef(target) ? target : ref(target)
   const targetMeta = reactive({
@@ -141,7 +147,10 @@ export const usePosition = (
   { offset, targetMeta }: Pick<ScrollingReturnData, 'offset' | 'targetMeta'>,
   options: { centerRatio?: number; start?: number; end?: number } = {},
 ) => {
-  const { centerRatio, start, end } = merge({ centerRatio: 1, start: 10, end: 10 }, options)
+  const { centerRatio, start, end } = merge(
+    { centerRatio: 1, start: 10, end: 10 },
+    options,
+  )
 
   const position: ComputedRef<ScrollPosition> = computed(() => {
     const { scrollHeight, height, scrollWidth, width } = targetMeta
@@ -167,6 +176,42 @@ export const usePosition = (
   })
 
   return [position]
+}
+
+export const useIntersection = ({
+  offset,
+  targetMeta,
+}: Pick<ScrollingReturnData, 'offset' | 'targetMeta'>) => {
+  const targetRef: Ref<Element | null> = ref(null)
+
+  const rectMeta = reactive({ x: 0, y: 0 })
+
+  const interRect = computed(() => {
+    const { height, width } = toRefs(targetMeta)
+    const { x, y } = rectMeta
+    return {
+      x: 0 <= x && x <= width.value ? x : null,
+      y: 0 <= y && y <= height.value ? y : null,
+    }
+  })
+
+  const observe = (_target: Ref<Element | null> = targetRef) => {
+    const target = isRef(_target) ? unref(_target) : _target
+
+    const updateRect = () => {
+      const { x, y } = target!.getBoundingClientRect()
+      Object.assign(rectMeta, { x, y })
+    }
+
+    watchEffect(() => updateRect()! || watch(offset, updateRect))
+  }
+
+  const isInter = (axis: 'x' | 'y') => computed(() => !!interRect.value[axis])
+
+  return <const>[
+    { targetRef, rectMeta, interRect },
+    { observe, isInter },
+  ]
 }
 
 export default useScrolling

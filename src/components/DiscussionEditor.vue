@@ -1,16 +1,27 @@
-<script lang="ts" setup>
+<script lang="ts">
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useUnitSize } from '../hooks/style'
 
+import { useUnitSize } from '../hooks/style'
+import { useIntersection } from '../hooks/scrolling'
+
+import { scrolling, addListener } from './Reader.vue'
 import { editorBarTop, editorBarHeight } from './DiscussionEditorBar.vue'
 
+export const [, { observe, isInter }] = useIntersection(scrolling)
+</script>
+
+<script lang="ts" setup>
 const [height] = useUnitSize(6, 'em')
+
+const target = ref(null)
+onMounted(() => observe(target))
 
 const { t } = useI18n()
 </script>
 
 <template lang="pug">
-.DiscussionEditor
+.DiscussionEditor(ref="target")
   .wrap
     textarea.textarea.__unset(:placeholder="t('discussion_editor_tip')")
 </template>

@@ -4,10 +4,13 @@
   --color--accent: 17, 86%, 56%;
 
   --color-background--normal: 0, 0%, 100%;
+  --color-background--reverse: 0, 0%, 0%;
 
   --color-text--normal: 0, 0%, 20%;
   --color-text--light: 0, 0%, 40%;
   --color-text--lighter: 0, 0%, 60%;
+  --color-text--dazzle: 0, 0%, 80%;
+  --color-text--pure: 0, 0%, 100%;
 
   --color-border--normal: 0, 0%, 60%;
 

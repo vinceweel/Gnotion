@@ -95,3 +95,17 @@ hr.--line {
   height: 1px;
   border: unset;
 }
+
+/* custom element */
+
+log {
+  box-shadow: var(--shadow-colored--high);
+  background-color: hsl(var(--color-background--reverse));
+  padding: var(--padding--normal);
+  color: hsl(var(--color-text--dazzle));
+  left: 50vw;
+  top: 50vh;
+  transform: translateX(-50%) translateY(-50%);
+  position: fixed;
+  z-index: 99;
+}

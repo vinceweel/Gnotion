@@ -36,8 +36,6 @@ export const useUnitSize = (
       }
       return computed(() => getUnitSize(size))
     } else {
-      console.log(expression());
-      
       return computed(() => `calc(${expression()})`)
     }
   }

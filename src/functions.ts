@@ -48,3 +48,6 @@ export const merge = <T extends Record<string | number, any>>(
 
   return Object.assign(target || {}, source) as T
 }
+
+export const queryParams = (key: string) =>
+  new URLSearchParams(globalThis.location.search).get(key)

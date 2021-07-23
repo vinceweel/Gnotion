@@ -5,7 +5,7 @@ import { baseSize } from '../variables'
 import { useUnitSize } from '../hooks/style'
 
 import { fabOffsetY, fabHeight } from './FloatActionBar.vue'
-import { isInter } from './DiscussionEditor.vue'
+import { isInter, scrollToEditor } from './DiscussionEditor.vue'
 
 export const [editorBarHeight, { calc }] = useUnitSize(48)
 export const editorBarTop = calc(() => `${fabOffsetY.value} + ${baseSize.value}`)
@@ -16,6 +16,9 @@ import Button from './BaseButton.vue'
 import Icon from './BaseIcon.vue'
 import Avatar from './BaseAvatar.vue'
 import Space from './BaseSpace.vue'
+import { useOauth } from '../hooks/github/auth'
+
+const [{ code, authed }, { toAuth }] = useOauth()
 
 const isInterY = isInter('y')
 const height = editorBarHeight
@@ -30,9 +33,17 @@ const { t } = useI18n()
     Avatar(size="42")
     span.name Guest
     Space
-    Button.action
-      span.label {{ t('login_github_tip') }}
-      Icon(name="github")
+    template(v-if="!isInterY && authed")
+      Button.action(@click="() => scrollToEditor()")
+        Icon(name="talk")
+    template(v-else)
+      Button.action(v-if="!authed" @click="() => toAuth()")
+        span.label {{ t('login_github_tip') }}
+        Icon(name="github")
+      Button.action.-send(v-else)
+        span {{ t('send') }}
+        Space(width="8")
+        Icon.icon(name="send" size="20" rotate="-90")
 </template>
 
 <style scoped>
@@ -88,5 +99,13 @@ const { t } = useI18n()
   color: hsl(var(--color-text--normal));
   font-size: var(--font-size--medium);
   font-weight: bold;
+}
+
+.action.-send {
+  --background-color: hsl(var(--color-text--normal));
+  --padding: var(--padding--small) var(--padding--normal);
+
+  font-size: var(--font-size--medium);
+  color: hsl(var(--color-text--dazzle));
 }
 </style>

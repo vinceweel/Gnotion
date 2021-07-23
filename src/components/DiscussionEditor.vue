@@ -8,7 +8,10 @@ import { useIntersection } from '../hooks/scrolling'
 import { scrolling, scrollY } from './Reader.vue'
 import { editorBarTop, editorBarHeight } from './DiscussionEditorBar.vue'
 
-export const [, { observe, isInter }] = useIntersection(scrolling)
+export const [{ targetRef, rectMeta }, { observe, isInter }] = useIntersection(scrolling)
+export const scrollToEditor = () => {
+  scrollY(rectMeta.y - globalThis.innerHeight / 2)
+}
 </script>
 
 <script lang="ts" setup>
@@ -22,17 +25,14 @@ const target = ref(null)
 onMounted(() => observe(target))
 
 const { t } = useI18n()
-
-// TODO: remove after test
-onMounted(() => scrollY(3500, false))
 </script>
 
 <template lang="pug">
 .DiscussionEditor(ref="target")
   .wrap
+    textarea.textarea.__unset(:placeholder="t('discussion_editor_tip')")
     Button.action.-send(v-if="false" :size="actionSize")
       Icon.icon(name="done" size="28")
-    textarea.textarea.__unset(:placeholder="t('discussion_editor_tip')")
 </template>
 
 <style scoped>

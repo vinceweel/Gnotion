@@ -6,7 +6,7 @@ import {
   toRefs,
   unref,
   watch,
-  watchEffect,
+  WatchOptions,
 } from 'vue'
 import type { Ref } from 'vue'
 
@@ -195,7 +195,10 @@ export const useIntersection = ({
     }
   })
 
-  const observe = (_target: typeof targetRef = targetRef) => {
+  const observe = (
+    _target: typeof targetRef = targetRef,
+    options: WatchOptions = { immediate: true },
+  ) => {
     const target = isRef(_target) ? unref(_target) : _target
 
     const updateRect = () => {
@@ -203,7 +206,7 @@ export const useIntersection = ({
       Object.assign(rectMeta, { x, y })
     }
 
-    watchEffect(() => (updateRect()! as undefined) || watch(offset, updateRect))
+    watch(offset, updateRect, options)
   }
 
   const isInter = (axis: 'x' | 'y') => computed(() => !!interRect.value[axis])

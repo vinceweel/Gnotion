@@ -3,6 +3,7 @@ export default {
   avatar: '头像',
   guest: '看客',
   settings: '设置',
+  send: '发送',
   
   repo_link: 'Github 仓库',
   login_github_tip: '通过 Github 登陆 >>',

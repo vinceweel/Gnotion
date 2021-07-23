@@ -3,6 +3,7 @@ export default {
   avatar: 'Avatar',
   guest: 'Guest',
   settings: 'Settings',
+  send: 'Send',
   
   repo_link: 'Github Repo',
   login_github_tip: 'Login from Github >>',

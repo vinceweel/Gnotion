@@ -5,24 +5,32 @@ import { useI18n } from 'vue-i18n'
 import { useUnitSize } from '../hooks/style'
 import { useIntersection } from '../hooks/scrolling'
 
-import { scrolling, addListener } from './Reader.vue'
+import { scrolling, scrollY } from './Reader.vue'
 import { editorBarTop, editorBarHeight } from './DiscussionEditorBar.vue'
 
 export const [, { observe, isInter }] = useIntersection(scrolling)
 </script>
 
 <script lang="ts" setup>
+import Icon from './BaseIcon.vue'
+import Button from './BaseButton.vue'
+
 const [height] = useUnitSize(6, 'em')
 
 const target = ref(null)
 onMounted(() => observe(target))
 
 const { t } = useI18n()
+
+// TODO: remove after test
+onMounted(() => scrollY(3500, false))
 </script>
 
 <template lang="pug">
 .DiscussionEditor(ref="target")
   .wrap
+    Button
+      Icon(name="sync")
     textarea.textarea.__unset(:placeholder="t('discussion_editor_tip')")
 </template>
 

@@ -8,7 +8,7 @@ import {
   watch,
   watchEffect,
 } from 'vue'
-import type { Ref, ComputedRef } from 'vue'
+import type { Ref } from 'vue'
 
 import { debounce, merge, throttle } from '../functions'
 
@@ -36,9 +36,9 @@ export const useScrolling = (options: Options = {}) => {
   const distance: { x: number; y: number } = reactive({ x: 0, y: 0 })
   const offset: { x: number; y: number } = reactive({ x: 0, y: 0 })
 
-  const axis: Ref<ScrollAxis> = ref(null)
+  const axis = ref<ScrollAxis>(null)
 
-  /* custom listener list */ const listeners: Ref<ListenerOption[]> = ref([])
+  /* custom listener list */ const listeners = ref<ListenerOption[]>([])
 
   const listener: listener = (ev) => {
     const { scrollTop: y = 0, scrollLeft: x = 0 } = ev.target as Element
@@ -105,7 +105,7 @@ export const useScrolling = (options: Options = {}) => {
   }
 
   const scroll = (options: ScrollToOptions, target = targetRef.value) =>
-    target!.scrollTo(merge({ top: 0, left: 0, behavior: 'smooth' }, options))
+    target?.scrollTo(merge({ top: 0, left: 0, behavior: 'smooth' }, options))
   const scrollY = (top: number, smooth: boolean = true) =>
     scroll({ top, behavior: smooth ? 'smooth' : 'auto' })
   const scrollX = (left: number, smooth: boolean = true) =>
@@ -128,7 +128,7 @@ export const useDirection = ({
   distance,
   axis,
 }: Pick<ScrollingReturnData, 'axis' | 'distance'>) => {
-  const direction: ComputedRef<ScrollDirection> = computed(() => ({
+  const direction = computed<ScrollDirection>(() => ({
     x: distance!.x < 0 ? 'left' : 'right',
     y: distance!.y < 0 ? 'up' : 'down',
   }))
@@ -152,7 +152,7 @@ export const usePosition = (
     options,
   )
 
-  const position: ComputedRef<ScrollPosition> = computed(() => {
+  const position = computed<ScrollPosition>(() => {
     const { scrollHeight, height, scrollWidth, width } = targetMeta
 
     const getPosition = (
@@ -182,7 +182,7 @@ export const useIntersection = ({
   offset,
   targetMeta,
 }: Pick<ScrollingReturnData, 'offset' | 'targetMeta'>) => {
-  const targetRef: Ref<Element | null> = ref(null)
+  const targetRef = ref<Element | null>(null)
 
   const rectMeta = reactive({ x: 0, y: 0 })
 
@@ -195,7 +195,7 @@ export const useIntersection = ({
     }
   })
 
-  const observe = (_target: Ref<Element | null> = targetRef) => {
+  const observe = (_target: typeof targetRef = targetRef) => {
     const target = isRef(_target) ? unref(_target) : _target
 
     const updateRect = () => {
@@ -203,7 +203,7 @@ export const useIntersection = ({
       Object.assign(rectMeta, { x, y })
     }
 
-    watchEffect(() => updateRect()! as undefined || watch(offset, updateRect))
+    watchEffect(() => (updateRect()! as undefined) || watch(offset, updateRect))
   }
 
   const isInter = (axis: 'x' | 'y') => computed(() => !!interRect.value[axis])
@@ -228,7 +228,7 @@ type ScrollPosition = { x: position; y: position }
 type ScrollAxis = 'x' | 'y' | null
 
 type Options = {
-  target?: ScrollTarget
+  target?: Element | null | Ref<Element | null>
   optimization?: 'throttle' | 'debounce'
   debounce?: {
     wait?: number
@@ -238,5 +238,3 @@ type Options = {
     wait?: number
   }
 }
-
-type ScrollTarget = Element | null | Ref<Element | null>

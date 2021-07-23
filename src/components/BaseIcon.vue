@@ -1,19 +1,22 @@
 <script lang="ts">
-export default {
-  name: 'Icon'
-}
+export default { name: 'Icon' }
 </script>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, toRefs } from 'vue'
-import type { Component } from 'vue'
+import { computed, toRefs } from 'vue'
+import type { Component, Prop, PropType } from 'vue'
+import type { CamelCase, KebabCase, SnakeCase } from 'type-fest'
 import pascalcase from 'pascalcase'
+
 import * as Icons from './icons'
+
+type IconsKeys = keyof typeof Icons
+type CamelIconsKeys = CamelCase<IconsKeys>
 
 const props = defineProps({
   name: {
-    type: String,
-    default: 'Default'
+    type: String as PropType<IconsKeys | CamelIconsKeys | KebabCase<CamelIconsKeys> | SnakeCase<CamelIconsKeys>>,
+    default: 'default'
   },
   color: {
     type: String,

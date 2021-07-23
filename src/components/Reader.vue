@@ -3,7 +3,7 @@ import useScrolling, { useDirection } from '../hooks/scrolling'
 
 export const [
   { targetRef, ...scrolling },
-  { mountListener, addListener },
+  { mountListener, addListener, scrollY },
 ] = useScrolling({ throttle: { wait: 400 } })
 const [direction, { isDown }] = useDirection(scrolling)
 </script>

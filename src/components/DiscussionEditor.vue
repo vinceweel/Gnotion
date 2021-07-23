@@ -15,7 +15,8 @@ export const [, { observe, isInter }] = useIntersection(scrolling)
 import Icon from './BaseIcon.vue'
 import Button from './BaseButton.vue'
 
-const [height] = useUnitSize(6, 'em')
+const [height] = useUnitSize(4, 'em')
+const [actionSize] = useUnitSize(48, 'px')
 
 const target = ref(null)
 onMounted(() => observe(target))
@@ -29,8 +30,8 @@ onMounted(() => scrollY(3500, false))
 <template lang="pug">
 .DiscussionEditor(ref="target")
   .wrap
-    Button
-      Icon(name="sync")
+    Button.action.-send(v-if="false" :size="actionSize")
+      Icon.icon(name="done" size="28")
     textarea.textarea.__unset(:placeholder="t('discussion_editor_tip')")
 </template>
 
@@ -99,5 +100,18 @@ onMounted(() => scrollY(3500, false))
   
   height: var(--height);
   width: 100%;
+}
+
+.action.-send {
+  --background-color: hsl(var(--color-text--normal));
+
+  bottom: calc(-1 * v-bind(actionSize) + var(--padding--small));
+  right: calc(v-bind(actionSize) - var(--padding--small));
+  position: absolute;
+  z-index: 2;
+}
+
+.action.-send .icon {
+  color: hsl(var(--color-text--dazzle));
 }
 </style>

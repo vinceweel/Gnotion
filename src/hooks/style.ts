@@ -47,7 +47,7 @@ export const useUnitSize = (
   return <const>[computed(() => getUnitSize(size)), { calc, change, toggle }]
 }
 
-type Unit = 'px' | '%' | 'vh' | 'vw' | 'em' | 'rem' | ''
+type Unit = 'px' | '%' | 'vh' | 'vw' | 'em' | 'rem' | 'deg' | ''
 type UnitSize = string
 type Size = number | UnitSize | undefined
 

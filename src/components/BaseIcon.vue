@@ -4,9 +4,11 @@ export default { name: 'Icon' }
 
 <script lang="ts" setup>
 import { computed, toRefs } from 'vue'
-import type { Component, Prop, PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import type { CamelCase, KebabCase, SnakeCase } from 'type-fest'
 import pascalcase from 'pascalcase'
+
+import { useUnitSize } from '../hooks/style'
 
 import * as Icons from './icons'
 
@@ -20,7 +22,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: 'black'
+    default: 'currentColor'
   },
   size: {
     type: [String, Number],
@@ -28,21 +30,27 @@ const props = defineProps({
   },
   width: [String, Number],
   height: [String, Number],
+  rotate: {
+    type: [String, Number],
+    default: 0
+  },
   viewBoxSize: {
     type: [String, Number],
     default: 24
   }
 })
 
-const { name: icon, size, width, height, viewBoxSize: vbs } = toRefs(props)
+const { name: icon, size, width, height, rotate, viewBoxSize: vbs } = toRefs(props)
 
 const Path = computed(() => (Icons as Record<string, Component>)[pascalcase(icon.value)])
+
+const [deg] = useUnitSize(rotate, 'deg')
 </script>
 
 <template lang="pug">
-svg(
+svg.Icon(
   xmlns="http://www.w3.org/2000/svg"
-  :class="['icon', props.name]"
+  :class="[props.name]"
   :viewBox="`0 0 ${vbs} ${vbs}`"
   :width="width ?? size"
   :height="height ?? size"
@@ -50,3 +58,11 @@ svg(
   g(:fill="color")
     path(v-is="Path")
 </template>
+
+<style scoped>
+.Icon {
+  --deg: v-bind(deg);
+  
+  transform: rotateZ(var(--deg));
+}
+</style>

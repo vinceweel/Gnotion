@@ -1,5 +1,7 @@
-<script lang="ts">import { toRefs } from "@vue/reactivity";
-import { useUnitSize } from "../hooks/style";
+<script lang="ts">
+import { toRefs } from 'vue'
+import { notRef } from '../functions'
+import { useUnitSize } from '../hooks/style'
 
 export default {
   name: 'Button'
@@ -8,6 +10,7 @@ export default {
 
 <script lang="ts" setup>
 const props = withDefaults(defineProps<{
+  size?: string | number
   height?: string | number
   width?: string | number
 }>(), {
@@ -16,8 +19,10 @@ const props = withDefaults(defineProps<{
 })
 const refs = toRefs(props)
 
-const [height] = useUnitSize(refs.height)
-const [width] = useUnitSize(refs.width)
+const notSize = notRef(refs.size)
+
+const [height] = useUnitSize(notSize(refs.height))
+const [width] = useUnitSize(notSize(refs.width))
 </script>
 
 <template lang="pug">

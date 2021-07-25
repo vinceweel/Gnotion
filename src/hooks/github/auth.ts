@@ -16,6 +16,13 @@ export const useOauth = (options: { open?: boolean; key?: string } = {}) => {
   const code = ref(queryParams(key!))
   const authed = computed(() => !!code.value)
 
+  if (authed.value)
+    globalThis.history.replaceState(
+      null,
+      globalThis.document.title,
+      globalThis.location.pathname,
+    )
+
   const toAuth = () => {
     const url = `${GITHUB_OAUTH_URL}?client_id=${GITHUB_OAUTH_CLIENT_ID}`
     if (open) globalThis.open(url)

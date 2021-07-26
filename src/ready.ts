@@ -20,9 +20,8 @@ export default (app: App<Element>) =>
     setStorage('_gnotion_config', config)
     setStorage('_gnotion_settings', settings)
 
-    console.table(getStorage('_gnotion_config'));
-    console.table(getStorage('_gnotion_settings'));
-    
+    // console.table(getStorage('_gnotion_config'));
+    // console.table(getStorage('_gnotion_settings'));
 
     resolve(app)
   })

@@ -38,3 +38,4 @@ declare type storagePrefix = `_gnotion`
 declare type storageKeys =
   | `${storagePrefix}_settings`
   | `${storagePrefix}_config`
+  | `${storagePrefix}_access_token`

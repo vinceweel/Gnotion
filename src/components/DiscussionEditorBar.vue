@@ -5,7 +5,6 @@ import { baseSize } from '../variables'
 import { useUnitSize } from '../hooks/style'
 
 import { fabOffsetY, fabHeight } from './FloatActionBar.vue'
-import { isInter, scrollToEditor } from './DiscussionEditor.vue'
 
 export const [editorBarHeight, { calc }] = useUnitSize(48)
 export const editorBarTop = calc(() => `${fabOffsetY.value} + ${baseSize.value}`)
@@ -16,10 +15,10 @@ import Button from './BaseButton.vue'
 import Icon from './BaseIcon.vue'
 import Avatar from './BaseAvatar.vue'
 import Space from './BaseSpace.vue'
+
 import { useOauth } from '../hooks/github/auth'
 
-const [{ code, authed }, { toAuth }] = useOauth()
-
+import { isInter, scrollToEditor } from './DiscussionEditor.vue'
 const isInterY = isInter('y')
 const height = editorBarHeight
 const top = editorBarTop
@@ -31,13 +30,13 @@ const { t } = useI18n()
 .DiscussionEditorBar(:class="{ '-drop': isInterY }")
   .wrap.__center.-axis
     Avatar(size="42")
-    span.name Guest
+    span.name Guest 
     Space
-    template(v-if="!isInterY && authed")
+    template(v-if="!isInterY")
       Button.action(@click="() => scrollToEditor()")
         Icon(name="talk")
     template(v-else)
-      Button.action(v-if="!authed" @click="() => toAuth()")
+      Button.action(v-if="!false")
         span.label {{ t('login_github_tip') }}
         Icon(name="github")
       Button.action.-send(v-else)

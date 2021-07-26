@@ -13,8 +13,28 @@ declare module 'https://cdn.skypack.dev/@octokit/graphql' {
 }
 
 type Context = {
-  tomlParser: (tomlContent: string) => any
+  runtime: {
+    parse: <T>(toml: string) => T
+  }
+}
+type Settings = {
+  theme: {
+    mode: 'light' | 'dark'
+  }
+}
+type Config = {
+  auth: {
+    token: string
+  }
 }
 declare var GNotion: {
-  initCustom: (context: Context) => {}
+  initCustom: (context: Context) => {
+    settings: Settings
+    config: Config
+  }
 }
+
+declare type storagePrefix = `_gnotion`
+declare type storageKeys =
+  | `${storagePrefix}_settings`
+  | `${storagePrefix}_config`

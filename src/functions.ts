@@ -51,3 +51,9 @@ export const merge = <T extends Record<string | number, any>>(
 
 export const queryParams = (key: string) =>
   new URLSearchParams(globalThis.location.search).get(key)
+
+export const setStorage = <V = any>(key: storageKeys, value: V) =>
+  globalThis.localStorage.setItem(key, JSON.stringify(value))
+
+export const getStorage = <V = any>(key: storageKeys) =>
+  <V>JSON.parse(globalThis.localStorage.getItem(key)!)

@@ -1,4 +1,5 @@
 <script lang="ts">
+import { onMounted, onUnmounted, watchEffect } from 'vue'
 import useScrolling, { useDirection } from '../hooks/scrolling'
 
 export const [
@@ -9,12 +10,12 @@ const [, { isDown }] = useDirection(scrolling)
 </script>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, watch, watchEffect } from 'vue'
-
 import Space from './BaseSpace.vue'
+import Data from './BaseData.vue'
 import { fabHeight, toggleFAB } from './FloatActionBar.vue'
 
 const target = targetRef
+
 onMounted(mountListener)
 onUnmounted(watchEffect(() => toggleFAB(isDown())))
 </script>
@@ -23,6 +24,9 @@ onUnmounted(watchEffect(() => toggleFAB(isDown())))
 article.Reader(ref="target")
   .wrap
     Space(:height="fabHeight")
+    Data(name="accessToken" v-slot="[data, { refresh }, { loading }]")
+      | data: {{ loading }}:{{ data }}
+      button(@click="refresh") refresh
     p(v-for="n of 25" :key="n")
       | Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et eum reiciendis aperiam consectetur veniam dignissimos voluptate quibusdam atque ipsam quasi, ullam earum eligendi similique, neque soluta amet incidunt excepturi iure.
   slot(name="bottom")

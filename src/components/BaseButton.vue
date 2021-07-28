@@ -3,9 +3,7 @@ import { toRefs } from 'vue'
 import { notRef } from '../functions'
 import { useUnitSize } from '../hooks/style'
 
-export default {
-  name: 'Button'
-}
+export default { name: 'Button' }
 </script>
 
 <script lang="ts" setup>

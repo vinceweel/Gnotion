@@ -16,8 +16,6 @@ import Icon from './BaseIcon.vue'
 import Avatar from './BaseAvatar.vue'
 import Space from './BaseSpace.vue'
 
-import { useOauth } from '../hooks/github/auth'
-
 import { isInter, scrollToEditor } from './DiscussionEditor.vue'
 const isInterY = isInter('y')
 const height = editorBarHeight
@@ -30,7 +28,7 @@ const { t } = useI18n()
 .DiscussionEditorBar(:class="{ '-drop': isInterY }")
   .wrap.__center.-axis
     Avatar(size="42")
-    span.name Guest 
+    span.name Guest
     Space
     template(v-if="!isInterY")
       Button.action(@click="() => scrollToEditor()")

@@ -10,6 +10,14 @@ export const notRef =
     return leftRefValue
   }
 
+export const not = (left: () => any) => (right: () => any) => {
+  try {
+    return left()
+  } catch (error) {
+    return right()
+  }
+}
+
 export const debounce = (
   func: (...args: any[]) => any,
   wait: number,
@@ -53,7 +61,17 @@ export const queryParams = (key: string) =>
   new URLSearchParams(globalThis.location.search).get(key)
 
 export const setStorage = <V = any>(key: storageKeys, value: V) =>
-  globalThis.localStorage.setItem(key, JSON.stringify(value))
+  globalThis.localStorage.setItem(
+    key,
+    typeof value === 'string' ? value : JSON.stringify(value),
+  )
 
 export const getStorage = <V = any>(key: storageKeys) =>
-  <V>JSON.parse(globalThis.localStorage.getItem(key)!)
+  <V>(
+    ((value) => not(() => JSON.parse(value!))(() => value))(
+      globalThis.localStorage.getItem(key),
+    )
+  )
+
+export const sleep = (second: number = 0) =>
+  new Promise((resolve) => globalThis.setTimeout(resolve, second * 1000))

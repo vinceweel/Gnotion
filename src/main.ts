@@ -1,12 +1,9 @@
 import 'normalize.css'
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import ready from './ready'
+const app = ready()
 
 import i18n from './locale'
+app.use(i18n)
 
-import ready from './ready'
-
-ready(createApp(App))
-  .then((app) => app.use(i18n))
-  .then((app) => app.mount('#app'))
+app.mount('#app')

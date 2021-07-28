@@ -20,10 +20,12 @@ export const context = {
 
 export type RequestorNames = keyof typeof requestors
 export type RequestorScope = 'github'
+export type RequestorParams = Parameters<typeof requestors[RequestorNames]>[1]
 
-type Options = {
+export type Options = {
   immediate?: boolean
-  params?: Parameters<typeof requestors[RequestorNames]>[1]
+  params?: RequestorParams
+  mock?: boolean
 }
 
 const defaultOptions: Options = {
@@ -31,17 +33,17 @@ const defaultOptions: Options = {
   params: {},
 }
 
-export const useData = <Name extends RequestorNames>(
+export const useData = <Name extends RequestorNames, Data = any>(
   name: Name,
   options: Options = {},
 ) => {
-  const { immediate, params } = merge(
+  const { immediate, params, mock } = merge(
     defaultOptions,
     options,
   ) as Required<Options>
 
-  const data = ref()
-  const error = ref()
+  const data = ref<null | Data>(null)
+  const error = ref<null | Error>(null)
   const loading = ref(false)
 
   const requestor = requestors[name]
@@ -55,6 +57,8 @@ export const useData = <Name extends RequestorNames>(
 
     data.value = result
   }
+
+  if (mock) return <const>[data, { refresh }, { error, loading }]
 
   if (immediate && params !== null) refresh(params)
 

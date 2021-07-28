@@ -24,9 +24,6 @@ onUnmounted(watchEffect(() => toggleFAB(isDown())))
 article.Reader(ref="target")
   .wrap
     Space(:height="fabHeight")
-    Data(name="user" v-slot="[data, { refresh }, { loading }]")
-      | data: {{ loading }}:{{ data }}
-      button(@click="refresh") refresh
     p(v-for="n of 25" :key="n")
       | Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et eum reiciendis aperiam consectetur veniam dignissimos voluptate quibusdam atque ipsam quasi, ullam earum eligendi similique, neque soluta amet incidunt excepturi iure.
   slot(name="bottom")

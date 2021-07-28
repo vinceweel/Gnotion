@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount } from "vue";
 
 import { useOpacity, useUnitSize } from "../hooks/style";
 import { baseSizePadding } from "../variables";
@@ -23,20 +23,21 @@ export const drawerIsHide = computed(() => drawerOffsetX.value === '0px')
 </script>
 
 <script lang="ts" setup>
+import DrawerOwner from './DrawerOwner.vue'
+
 const width = drawerWidth
 const height = drawerHeight
 const opacity = drawerOpacity
 const offsetX = drawerOffsetX
 const offsetY = calc(() => `${fabOffsetY.value} + ${fabIsHide.value ? baseSizePadding.value : '0px'}`)
 
-onBeforeMount(() => {
-  toggleDrawer(true)
-})
+onBeforeMount(() => toggleDrawer(false))
 </script>
 
 <template lang="pug">
 .Drawer
   .wrap
+    DrawerOwner
 </template>
 
 <style scoped>

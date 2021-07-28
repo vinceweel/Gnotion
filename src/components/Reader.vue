@@ -24,7 +24,7 @@ onUnmounted(watchEffect(() => toggleFAB(isDown())))
 article.Reader(ref="target")
   .wrap
     Space(:height="fabHeight")
-    Data(name="accessToken" v-slot="[data, { refresh }, { loading }]")
+    Data(name="user" v-slot="[data, { refresh }, { loading }]")
       | data: {{ loading }}:{{ data }}
       button(@click="refresh") refresh
     p(v-for="n of 25" :key="n")

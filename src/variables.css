@@ -65,7 +65,7 @@
 
 /* filter */
 :root {
-  --blur--normal: blur(calc(var(--base-size) / 4));
+  --blur--normal: calc(var(--base-size) / 4);
 }
 
 /* font */

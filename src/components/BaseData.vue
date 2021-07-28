@@ -10,7 +10,8 @@ const props = defineProps({
     required: true
   },
   params: {
-    type: Object
+    type: Object,
+    default: () => ({})
   },
   immediate: Boolean
 })

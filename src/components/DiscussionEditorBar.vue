@@ -49,7 +49,7 @@ const { t } = useI18n()
   --height: v-bind(height);
   --width: 100%;
   --shadow: var(--shadow-colored--medium);
-  --blur: 5px;
+  --blur: var(--blur--normal);
 
   transition: top 0.175s var(--transition--normal),
     bottom 0.175s var(--transition--normal);
@@ -72,7 +72,7 @@ const { t } = useI18n()
   backdrop-filter: blur(var(--blur));
   box-shadow: var(--shadow);
   border-radius: var(--height);
-  background-color: hsla(var(--color-background--normal), 30%);
+  background-color: hsla(var(--color-background--normal), 40%);
 
   height: inherit;
   width: 100%;

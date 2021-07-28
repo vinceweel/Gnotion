@@ -17,21 +17,29 @@ type Context = {
     parse: <T>(toml: string) => T
   }
 }
-type Settings = {
+declare type Settings = {
   theme: {
     mode: 'light' | 'dark'
   }
 }
-type Config = {
-  auth: {
+declare type Config = {
+  authorization: {
     token: string
+    client_id: string
+    client_secret: string
+  }
+  notion: {
+    source: 'issues' | 'branch' | 'wiki'
+  }
+  repository: {
+    name: string
+    owner: string
   }
 }
 declare var GNotion: {
-  initCustom: (context: Context) => {
-    settings: Settings
-    config: Config
-  }
+  initCustom: (context: Context) => void
+  settings: Settings
+  config: Config
 }
 
 declare type storagePrefix = `_gnotion`

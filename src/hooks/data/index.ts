@@ -1,11 +1,21 @@
 import { ref } from 'vue'
+
 import { merge } from '../../functions'
+import { useGithub } from '../api'
+import { useConfig, useSettings } from '../global'
+
 import * as base from './base'
 import * as github from './github'
 
-const requestors = {
+export const requestors = {
   ...base,
   ...github,
+}
+
+export const context = {
+  github: useGithub(),
+  config: useConfig(),
+  settings: useSettings(),
 }
 
 export type RequestorNames = keyof typeof requestors
@@ -33,8 +43,6 @@ export const useData = <Name extends RequestorNames>(
   const data = ref()
   const error = ref()
   const loading = ref(false)
-
-  const context = {}
 
   const requestor = requestors[name]
 

@@ -1,6 +1,8 @@
 import tomlSettings from './settings.js'
 import tomlConfig from './config.js'
 
+const GNotion = {}
+
 const initCustom = (context = {}) => {
   const {
     runtime: { parse },
@@ -9,7 +11,8 @@ const initCustom = (context = {}) => {
   const settings = parse(tomlSettings)
   const config = parse(tomlConfig)
 
-  return { settings, config }
+  Object.assign(GNotion, { settings, config })
 }
 
-Object.assign(globalThis, { GNotion: { initCustom } })
+Object.assign(GNotion, { initCustom })
+Object.assign(globalThis, { GNotion })

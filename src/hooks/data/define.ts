@@ -1,10 +1,12 @@
+import { context } from '.'
+
 export const defineData = <T extends Requestor>(requestor: T) => requestor
 export const defineAsyncData = <T extends AsyncRequestor>(requestor: T) =>
   requestor
 
 type Meta = Record<string, any>
 
-type Context = {}
+type Context = typeof context
 
 type Requestor<Data = any> = (
   context: Context,

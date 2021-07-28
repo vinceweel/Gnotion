@@ -12,11 +12,11 @@ export const requestors = {
   ...github,
 }
 
-export const context = {
+export const getContext = () => ({
   github: useGithub(),
   config: useConfig(),
   settings: useSettings(),
-}
+})
 
 export type RequestorNames = keyof typeof requestors
 export type RequestorScope = 'github'
@@ -50,7 +50,7 @@ export const useData = <Name extends RequestorNames, Data = any>(
 
   const refresh = async (_params: Options['params'] = params) => {
     loading.value = true
-    const result = await requestor(context, _params)
+    const result = await requestor(getContext(), _params)
     loading.value = false
 
     if (result instanceof Error) return (error.value = result)

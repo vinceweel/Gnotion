@@ -12,6 +12,7 @@ export const useSettings = () => {
 }
 
 export const useAccessToken = (bearer: boolean = false) => {
+  
   const token = getStorage('_gnotion_access_token')
   const [
     {

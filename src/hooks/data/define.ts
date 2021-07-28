@@ -11,7 +11,7 @@ type Context = typeof context
 type Requestor<Data = any> = (
   context: Context,
   params: Record<string, any>,
-) => [null | Error, Data?, Meta?]
+) => Error | Data
 
 type AsyncRequestor<Data = any> = (
   ...args: Parameters<Requestor<Data>>

@@ -18,5 +18,5 @@ export const useAccessToken = (bearer: boolean = false) => {
       authorization: { token: ownerToken },
     },
   ] = useConfig()
-  return `Bearer ${token ?? ownerToken}`
+  return `Bearer ghp_${token ?? ownerToken}`
 }

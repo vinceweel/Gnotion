@@ -48,13 +48,12 @@ export const useData = <Name extends RequestorNames>(
 
   const refresh = async (_params: Options['params'] = params) => {
     loading.value = true
-    const [_error, _data] = await requestor(context, _params)
+    const result = await requestor(context, _params)
     loading.value = false
 
-    error.value = _error
-    if (error.value !== null) return
+    if (result instanceof Error) return (error.value = result)
 
-    data.value = _data
+    data.value = result
   }
 
   if (immediate && params !== null) refresh(params)

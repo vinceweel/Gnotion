@@ -8,7 +8,7 @@ name = 'GNotion'
 owner = 'vinceweel'
 
 [authorization]
-token = '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'
+token = 'XTFXWDL0toNgsbYX69HdkYsCyp4sfN2C5Ovc'
 client_id = ''
 client_secret = ''
 `

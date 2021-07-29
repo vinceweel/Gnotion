@@ -18,6 +18,7 @@ export const fabIsHide = computed(() => fabOffsetY.value === '0px')
 
 <script lang="ts" setup>
 import { toggleDrawer, drawerIsHide } from './Drawer.vue'
+import { toggleBrowser } from './Browser.vue'
 
 const size = ref(40)
 const [actionSize] = useUnitSize(size)
@@ -33,7 +34,7 @@ const offsetY = fabOffsetY
   .wrap.__center.-axis
     Button.action.avatar
       Avatar(:size="size")
-    Button.action
+    Button.action(@click="() => toggleBrowser()")
       Icon(name="all_inbox" :size="iconSize")
     Search.search
       template(v-slot:left)

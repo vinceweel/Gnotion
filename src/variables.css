@@ -34,6 +34,7 @@
 :root {
   --padding--normal: calc(var(--base-size) * 2);
   --padding--small: calc(var(--base-size) * 1);
+  --padding--tiny: calc(var(--base-size) / 2);
 }
 
 :root {
@@ -77,4 +78,7 @@
   --font-size--medium: 87.5%;
   --font-size--small: 75%;
   --font-size--tiny: 62.5%;
+
+  --line-height--normal: 1.75;
+  --line-height--medium: 1.35;
 }

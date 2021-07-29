@@ -7,7 +7,7 @@ export default {
 <script lang="ts" setup>
 import FloatActionBar from './components/FloatActionBar.vue'
 import Drawer from './components/Drawer.vue'
-import Browser from './components/Browser.vue'
+import Browser, { showBrowser } from './components/Browser.vue'
 import Reader from './components/Reader.vue'
 import Editor from './components/Editor.vue'
 import Discussion from './components/Discussion.vue'
@@ -19,7 +19,7 @@ import Mask from './components/Mask.vue'
 <template lang="pug">
 FloatActionBar
 Drawer
-Browser(v-if="!true")
+Browser(v-if="showBrowser")
 Editor(v-if="!true")
 Reader(v-if="true")
   template(v-slot:bottom)

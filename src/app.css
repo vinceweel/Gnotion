@@ -30,6 +30,10 @@ body {
   overflow: hidden;
 }
 
+*.__unselect {
+  user-select: none;
+}
+
 a.__unset {
   color: var(--color--primary);
   text-decoration: unset;

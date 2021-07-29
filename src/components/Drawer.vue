@@ -31,7 +31,7 @@ const opacity = drawerOpacity
 const offsetX = drawerOffsetX
 const offsetY = calc(() => `${fabOffsetY.value} + ${fabIsHide.value ? baseSizePadding.value : '0px'}`)
 
-onBeforeMount(() => toggleDrawer(false))
+onBeforeMount(() => toggleDrawer(true))
 </script>
 
 <template lang="pug">

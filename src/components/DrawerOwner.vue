@@ -4,7 +4,7 @@ import Data from './BaseData.vue'
 </script>
 
 <template lang="pug">
-Data(name="user" :params="{ role: 'owner' }" v-slot="[user]")
+Data(mock name="user" :params="{ role: 'owner' }" v-slot="[user]")
   .DrawerOwner.__center.-axis
     Avatar.avatar(:url="user?.avatar")
     .info

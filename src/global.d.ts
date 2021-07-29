@@ -47,3 +47,11 @@ declare type storageKeys =
   | `${storagePrefix}_settings`
   | `${storagePrefix}_config`
   | `${storagePrefix}_access_token`
+
+declare type Label = {
+  name: string
+}
+
+declare type ArticleListItem = {
+  title: string
+}

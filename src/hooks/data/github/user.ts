@@ -1,13 +1,17 @@
 import { defineAsyncData } from '../define'
 
 export default defineAsyncData(
-  async ({ github }, { username = 'vinceweel' }) => {
+  async ({ github: { graphql } }, { username = 'vinceweel' }) => {
     try {
-      const { user } = await github.graphql(
+      const { user } = await graphql(
         `
           query user($login: String!) {
             user(login: $login) {
-              id fullname: name email discription: bio avatar: avatarUrl
+              id
+              fullname: name
+              email
+              description: bio
+              avatar: avatarUrl
             }
           }
         `,

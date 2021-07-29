@@ -11,7 +11,6 @@ const [, { isDown }] = useDirection(scrolling)
 
 <script lang="ts" setup>
 import Space from './BaseSpace.vue'
-import Data from './BaseData.vue'
 import { fabHeight, toggleFAB } from './FloatActionBar.vue'
 
 const target = targetRef

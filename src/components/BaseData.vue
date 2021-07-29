@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 
+import { globalMock } from '../variables'
 import useData from '../hooks/data'
 import type { RequestorNames, RequestorParams } from '../hooks/data'
 
 const props = defineProps({
   mock: {
     type: [Boolean, Object],
-    default: false
+    default: globalMock.value
   },
   name: {
     type: String as unknown as PropType<RequestorNames>,

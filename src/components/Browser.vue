@@ -1,7 +1,7 @@
 <script lang="ts">
 import { useToggle } from '../hooks/global'
 
-export const [showBrowser, { toggle: toggleBrowser }] = useToggle(true)
+export const [showBrowser, { toggle: toggleBrowser }] = useToggle(false)
 </script>
 
 <script lang="ts" setup>

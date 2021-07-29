@@ -40,7 +40,7 @@ onBeforeMount(() => {
 }
 
 .wrap {
-  backdrop-filter: var(--blur--normal);
+  backdrop-filter: blur(var(--blur--normal));
   background-color: hsla(var(--color-background--normal), 50%);
 
   height: 100%;

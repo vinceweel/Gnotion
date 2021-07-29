@@ -20,6 +20,7 @@ import { fabHeight } from './FloatActionBar.vue'
     Data(name="articles" v-slot="[list]")
       template(v-for="(item, n) of list" :key="n")
         ListItem(:data="item")
+        Space(height="8")
       Space(height="48")
 </template>
 

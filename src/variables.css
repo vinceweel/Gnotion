@@ -4,6 +4,8 @@
   --color--accent: 17, 86%, 56%;
 
   --color-background--normal: 0, 0%, 100%;
+  --color-background--dawn: 0, 0%, 90%;
+  --color-background--almost: 0, 0%, 95%;
   --color-background--reverse: 0, 0%, 0%;
 
   --color-text--darker: 0, 0%, 0%;
@@ -12,6 +14,7 @@
   --color-text--light: 0, 0%, 40%;
   --color-text--lighter: 0, 0%, 60%;
   --color-text--dazzle: 0, 0%, 80%;
+  --color-text--dawn: 0, 0%, 90%;
   --color-text--pure: 0, 0%, 100%;
 
   --color-border--normal: 0, 0%, 60%;
@@ -39,6 +42,7 @@
 
 :root {
   --radius--normal: calc(var(--base-size) * 2);
+  --radius--small: calc(var(--base-size));
 }
 
 :root {

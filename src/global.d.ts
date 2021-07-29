@@ -51,7 +51,15 @@ declare type storageKeys =
 declare type Label = {
   name: string
 }
-
+type User = {
+  id: number
+  avatar: string
+  name: string
+  type: 'User'
+  url: string
+}
 declare type ArticleListItem = {
   title: string
+  updated: string
+  user: User
 }

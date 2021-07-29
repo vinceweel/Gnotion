@@ -30,16 +30,18 @@ const list = [{ name: 'article' }, { name: 'news' }, { name: 'novel' }]
     Space(height="8")
     Icon.arrow(name="arrow_right")
   footer.__center.-axis.foot
-    Avatar.avatar(size="22")
+    Avatar.avatar(size="22" :url="data?.user?.avatar")
     Space(width="4")
-    span.author Author
+    span.author {{ data?.user?.name ?? 'Author' }}
     Space
-    Date.date(:input="Date.now() + 100000")
+    Date.date(:input="data?.updated")
 </template>
 
 <style scoped>
 .BrowserListItem {
-  padding: var(--padding--small);
+  border-radius: var(--radius--small);
+  background-color: hsl(var(--color-background--almost));
+  padding: var(--padding--normal);
   flex-direction: column;
   display: flex;
 }
@@ -66,7 +68,13 @@ const list = [{ name: 'article' }, { name: 'news' }, { name: 'novel' }]
 }
 
 .foot {
+  border-radius: 8px;
+  background-color: hsl(var(--color-text--dawn));
   font-size: var(--font-size--small);
+  padding: var(--padding--tiny) var(--padding--small);
+  margin-left: calc(-1 * var(--padding--tiny));
+  margin-right: calc(-1 * var(--padding--tiny));
+  margin-bottom: calc(-1 * var(--padding--small));
 }
 
 .author {

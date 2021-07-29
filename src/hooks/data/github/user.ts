@@ -25,3 +25,19 @@ export default defineAsyncData(
     }
   },
 )
+
+export const parser = ({
+  id,
+  avatar_url: avatar,
+  login: name,
+  type,
+  url,
+}: any): { user: User } => ({
+  user: {
+    id,
+    avatar,
+    name,
+    type,
+    url,
+  },
+})

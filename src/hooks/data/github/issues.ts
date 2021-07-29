@@ -1,5 +1,6 @@
 import { useGithubData } from '../../api'
 import { defineAsyncData } from '../define'
+import { parser as parserUser } from './user'
 
 export default defineAsyncData(async ({ github: { rest } }) => {
   const data = await useGithubData<any[]>(
@@ -17,6 +18,15 @@ export default defineAsyncData(async ({ github: { rest } }) => {
       updated_at: updated,
       url,
       user,
-    }) => ({ id, title, comments, state, labels, updated, url, user }),
+    }) => ({
+      id,
+      title,
+      comments,
+      state,
+      labels,
+      updated,
+      url,
+      ...parserUser(user),
+    }),
   )
 })

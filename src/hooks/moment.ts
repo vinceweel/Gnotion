@@ -16,7 +16,7 @@ export const useMoment = (input?: Ref<MomentInput>, strict?: boolean) => {
 
   watchEffect(() => {
     const instance = getInstance()
-    now.value = instance.toNow()
+    now.value = instance.fromNow()
   })
 
   return <const>[{ now }, getInstance()]

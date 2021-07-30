@@ -59,6 +59,8 @@ type User = {
   url: string
 }
 declare type ArticleListItem = {
+  number: number
+  id: number
   title: string
   updated: string
   user: User

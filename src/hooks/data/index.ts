@@ -28,15 +28,14 @@ export type Options = {
   mock?: boolean
 }
 
-const defaultOptions: Options = {
-  immediate: true,
-  params: {},
-}
-
 export const useData = <Name extends RequestorNames, Data = any>(
   name: Name,
   options: Options = {},
 ) => {
+  const defaultOptions: Options = {
+    immediate: true,
+    params: {},
+  }
   const { immediate, params, mock } = merge(
     defaultOptions,
     options,

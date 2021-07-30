@@ -3,7 +3,6 @@ import { toRefs } from 'vue'
 import type { PropType } from 'vue'
 
 import Avatar from './BaseAvatar.vue'
-import Icon from './BaseIcon.vue'
 import Space from './BaseSpace.vue'
 import Date from './BaseDate.vue'
 import LabelGroup from './LabelGroup.vue'
@@ -26,14 +25,12 @@ const list = [{ name: 'article' }, { name: 'news' }, { name: 'novel' }]
     h3.__unset.title
       | {{ data?.title ?? 'Title Title Title Title Title' }}
     Space(height="8")
-    LabelGroup(:list="list")
     Space(height="8")
-    Icon.arrow(name="arrow_right")
   footer.__center.-axis.foot
     Avatar.avatar(size="22" :url="data?.user?.avatar")
-    Space(width="4")
-    span.author {{ data?.user?.name ?? 'Author' }}
-    Space
+    Space(width="8")
+    LabelGroup(:list="list")
+    Space(margin="auto")
     Date.date(:input="data?.updated")
 </template>
 

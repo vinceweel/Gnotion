@@ -10,7 +10,12 @@ import Data from './BaseData.vue'
 import ListItem from './BrowserListItem.vue'
 
 import { fabHeight } from './FloatActionBar.vue'
+import { fetchArticle } from './Reader.vue'
 
+const onClick = ({ number }: ArticleListItem) => {
+  fetchArticle(number)
+  toggleBrowser(false)
+}
 </script>
 
 <template lang="pug">
@@ -19,7 +24,7 @@ import { fabHeight } from './FloatActionBar.vue'
     Space(:height="fabHeight")
     Data(name="articles" v-slot="[list]")
       template(v-for="(item, n) of list" :key="n")
-        ListItem(:data="item")
+        ListItem(:data="item" @click="() => onClick(item)")
         Space(height="8")
       Space(height="48")
 </template>

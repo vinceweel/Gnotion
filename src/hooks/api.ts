@@ -3,13 +3,13 @@ import { graphql } from 'https://cdn.skypack.dev/@octokit/graphql'
 
 import { useAccessToken, useConfig } from './global'
 
-const [
-  {
-    repository: { name: repo, owner },
-  },
-] = useConfig()
-
 export const useGithub = () => {
+  const [
+    {
+      repository: { name: repo, owner },
+    },
+  ] = useConfig()
+
   const defaults = {
     repo,
     owner,

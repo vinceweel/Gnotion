@@ -11,6 +11,7 @@ export default defineAsyncData(async ({ github: { rest } }) => {
   return data?.map(
     ({
       id,
+      number,
       title,
       comments,
       state,
@@ -20,6 +21,7 @@ export default defineAsyncData(async ({ github: { rest } }) => {
       user,
     }) => ({
       id,
+      number,
       title,
       comments,
       state,
